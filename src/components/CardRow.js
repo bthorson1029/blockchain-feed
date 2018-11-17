@@ -10,8 +10,8 @@ const data = {
       'date': 'January 2018',
       'type': 'UI/UX Design | Front End Development',
       'projectUrl': 'https://store.cadystudios.com/',
-      'imageUrl':('https://source.unsplash.com/weekly?water'),
-      'projectImage':('https://source.unsplash.com/weekly?water'),
+      'imageUrl': ('https://source.unsplash.com/weekly?water'),
+      'projectImage': ('https://source.unsplash.com/weekly?water'),
       'brief': 'To build a responsive and intuitive photo ordering and appointment scheduling platform built on the Kentico CMS. The Kentico CMS backend wasd to allow marketing and manangment positions to make adjustments to the website quickly and easily.',
       'tech': 'HTML, CSS, JS, Bootstrap, Kentico, Sketch, InVision, Adobe Illustrator',
       'content': `CadyStudios is a family-owned school photography business that specializes in magazine-quality photos for students of all backgrounds and interests.`,
@@ -22,8 +22,8 @@ const data = {
       'date': 'March 2018',
       'type': 'UI/UX Design',
       'projectUrl': 'https://swpconnect.com/',
-      'imageUrl':('https://source.unsplash.com/weekly?water'),
-      'projectImage':('https://source.unsplash.com/weekly?water'),
+      'imageUrl': ('https://source.unsplash.com/weekly?water'),
+      'projectImage': ('https://source.unsplash.com/weekly?water'),
       'brief': 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab tenetur quo, harum temporibus veritatis sapiente aliquam. Perferendis reprehenderit dolorum eius, harum necessitatibus. Placeat voluptatum soluta, veniam impedit ullam temporibus. Laboriosam.',
       'tech': 'Sketch, InVision, Adobe Photoshop',
       'content': `Lorem ipsum dolor sit amet, consectetur adipisicing elit. 
@@ -40,8 +40,8 @@ const data = {
       'date': 'November 2017',
       'type': 'UI/UX Design',
       'projectUrl': 'http://carzillaapp.com/',
-      'imageUrl':('https://source.unsplash.com/weekly?water'),
-      'projectImage':('https://source.unsplash.com/weekly?water'),
+      'imageUrl': ('https://source.unsplash.com/weekly?water'),
+      'projectImage': ('https://source.unsplash.com/weekly?water'),
       'brief': 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eligendi sit saepe, ducimus velit officia rem similique aliquid, quisquam magnam ea id fuga est facere dicta iste consequuntur minus adipisci maiores?',
       'tech': 'Sketch, InVision, Adobe Photoshop, Adobe Illustrator',
       'content': `Lorem ipsum dolor sit amet, consectetur adipisicing elit. 
@@ -61,6 +61,18 @@ const data = {
 
 
 
+const url = 'https://newsapi.org/v2/top-headlines?' +
+  'country=us&' +
+  'apiKey=6fb75bd662324da8ac93021ec495081e';
+const req = new Request(url);
+fetch(req)
+  .then(function (response) { 
+    let dataResponse = response.json();
+    console.log(dataResponse); 
+  });
+
+
+
 class CardRow extends Component {
   constructor(props) {
     super(props)
@@ -73,6 +85,7 @@ class CardRow extends Component {
     this.loadResources()
   }
 
+
   loadResources() {
     const resources = []
     data.projects.map(item => resources.push(item))
@@ -83,20 +96,20 @@ class CardRow extends Component {
   }
 
   render() {
-    const resourceCards = this.state.resources.map((resource, index) => 
-    <div className="col-lg-4">
-      <Resource
-        id={resource.id}
-        name={resource.name}
-        date={resource.date}
-        type={resource.type}
-        imageUrl={resource.imageUrl}
-        brief={resource.brief}
-        tech={resource.tech}
-        resourceUrl={resource.resourceUrl}
-        key={index}
-      />
-    </div>)
+    const resourceCards = this.state.resources.map((resource, index) =>
+      <div className="col-lg-4">
+        <Resource
+          id={resource.id}
+          name={resource.name}
+          date={resource.date}
+          type={resource.type}
+          imageUrl={resource.imageUrl}
+          brief={resource.brief}
+          tech={resource.tech}
+          resourceUrl={resource.resourceUrl}
+          key={index}
+        />
+      </div>)
 
     return (
       <div className="container-fluid">

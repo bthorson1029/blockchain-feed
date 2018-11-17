@@ -7,7 +7,7 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <div className="row">
+        <div className="container-fluid p-3">
           <CardRow />
         </div>
       </div>
