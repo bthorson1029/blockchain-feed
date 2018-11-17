@@ -8,12 +8,25 @@ a, a:hover {
 }
 .cardContainer .card {
   height: 100%;
-  padding-bottom: 1rem;
+}
+.cardContainer .card .card-body {
+  height: 200px;
+}
+.cardContainer .card .card-footer {
+  display: block;
+}
+.cardContainer .card .card-footer .footerLeft {
+  float: left;
+}
+.cardContainer .card .card-footer .footerRight {
+  float: right;
 }
 .cardContainer .card .sourceImage {
   height: 212px;
+  width: 100%;
   object-fit: cover;
   justify-content: center;
+  background-color: #efefef;
 }
 .cardContainer .card .sourceTitle h3 {
   font-size: 1.35rem;

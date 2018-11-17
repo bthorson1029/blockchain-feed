@@ -9,8 +9,8 @@ export default function Resource(props) {
 
   return (
     <div className="cardContainer">
-      <a href={props.resourceUrl} target="_blank">
       <div className="card">
+        <a href={props.resourceUrl} target="_blank">
           <div className="card-img-top">
             <img className="sourceImage img-fluid"
               src={props.imageUrl}
@@ -22,8 +22,16 @@ export default function Resource(props) {
           <div className="sourceTitle"><h3>{props.title}</h3></div>
           <div className="sourceDescription card-text"><small>{props.description}</small></div>
         </div>
+        </a>
+        <div className="card-footer">
+          <div className="footerLeft">
+            <div className="viewCount">{54}</div>
+            <i className="fas fa-eye"></i>
+          </div>
+          <div className="footerRight">
+          </div>
+        </div>
       </div>
-      </a>
     </div>
   );
 };
