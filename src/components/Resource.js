@@ -8,22 +8,23 @@ export default function Resource(props) {
   const resourceId = props.id;
 
   return (
-    <div>
+    <div className="cardContainer">
+      <a href={props.resourceUrl} target="_blank">
       <div className="card">
-          <div className="resourceImage">
-            <img className="projectImage img-fluid"
+          <div className="card-img-top">
+            <img className="sourceImage img-fluid"
               src={props.imageUrl}
-              alt={props.name}
+              alt={props.title}
             />
           </div>
-        <div className="projectDetails">
+        <div className="card-body">
           <div className="projectType"><p>{props.type}</p></div>
-          <div className="projectTitle"><h3>{props.name}</h3></div>
-          <button style={{ color: '#dd425c' }}>View Project</button>
+          <div className="sourceTitle"><h3>{props.title}</h3></div>
+          <div className="sourceDescription card-text"><small>{props.description}</small></div>
         </div>
       </div>
+      </a>
     </div>
   );
 };
-
 
