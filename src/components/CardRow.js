@@ -55,7 +55,7 @@ class CardRow extends Component {
                   date={date}
                   imageUrl={imageUrl}
                   resourceUrl={url}
-                  key={title}
+                  key={id+title}
                 />
               </div>
             }) : null
