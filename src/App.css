@@ -29,9 +29,10 @@ a, a:hover {
   background-color: #efefef;
 }
 .cardContainer .card .sourceTitle h3 {
-  font-size: 1.35rem;
+  font-size: 1.25rem;
   line-height: 1.5rem;
   margin-top: -1rem;
+
 }
 .cardContainer .card .sourceDescription {
   line-height: 1.35rem;

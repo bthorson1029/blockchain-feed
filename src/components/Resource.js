@@ -4,9 +4,6 @@ import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 
 
 export default function Resource(props) {
-
-  const resourceId = props.id;
-
   return (
     <div className="cardContainer">
       <div className="card">
