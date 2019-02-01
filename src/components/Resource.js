@@ -10,8 +10,10 @@ class Resource extends Component {
     this.state = { loaded: false };
   }
   
+  
 
   render() {
+    const publishedDate = this.props.date;
     return (
       <div className="cardContainer">
         <div className="card">
@@ -43,6 +45,9 @@ class Resource extends Component {
           <div className="card-footer">
             <div className="footerLeft">
               {/* <i className="fas fa-eye"></i> */}
+              <div className="publishedDate">
+                {(new Date(publishedDate).toDateString())}
+              </div>
             </div>
             <div className="footerRight">
             </div>

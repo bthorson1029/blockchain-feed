@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import logo from '../logo.svg';
 import Resource from './Resource';
+import Loader from './Loader';
 
 
 class CardRow extends Component {
@@ -17,10 +18,11 @@ class CardRow extends Component {
   }
 
   fetchData() {
+  
     const url = 'https://newsapi.org/v2/everything?' +
       'q=blockchain&' +
       'pageSize=24&' +
-      'sortBy=popularity&' +
+      'sortBy=relevancy&' +
       'apiKey=6fb75bd662324da8ac93021ec495081e';
     const req = new Request(url);
     fetch(req)
@@ -64,8 +66,8 @@ class CardRow extends Component {
                   />
                 </div>
               )
-            }) : null
-          }
+            }) :  <Loader /> 
+            }
         </div>
       </div>
     )
