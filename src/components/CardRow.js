@@ -9,6 +9,7 @@ class CardRow extends Component {
     super(props)
     this.state = {
       isLoading: true,
+      query: 'news',
       resources: []
     }
   }
@@ -18,9 +19,11 @@ class CardRow extends Component {
   }
 
   fetchData() {
-  
-    const url = 'https://newsapi.org/v2/everything?' +
-      'q=blockchain&' +
+    const baseURL = 'https://newsapi.org/v2/everything?';
+    const Query = this.state.query;
+    const searchQuery = 'q=' + Query + '&';
+    
+    const url = baseURL + searchQuery +
       'pageSize=24&' +
       'sortBy=relevancy&' +
       'apiKey=6fb75bd662324da8ac93021ec495081e';
@@ -42,11 +45,35 @@ class CardRow extends Component {
       .then(resources => this.setState({ resources, isLoading: false }))
       .catch(error => console.log('parsing failed', error))
   }
+  handleInputChange = () => {
+    this.setState({
+      query: this.search.value
+    }, () => {
+      if (this.state.query && this.state.query.length > 1) {
+        if (this.state.query.length % 2 === 0) {
+          this.fetchData()
+        }
+      } else if (!this.state.query) {
+      }
+    })
+  }
 
   render() {
     const { isLoading, resources } = this.state;
     return (
       <div className="container-fluid">
+        <div className="row">
+            <div className="col-lg-12">
+              <form className="form-group">
+                <input
+                  placeholder="Search for a topic..."
+                  ref={input => this.search = input}
+                  onChange={this.handleInputChange}
+                  className="form-control"
+                />
+              </form>
+            </div>
+        </div>
         <div className="row">
           {
             !isLoading && resources.length > 0 ? resources.map(resource => {
