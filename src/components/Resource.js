@@ -5,10 +5,11 @@ import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 
 class Resource extends Component {
 
-  state = {count: 0};
-  incrementViewCount = () => {
-    this.setState({ count: this.state.count + 1})
+  constructor() {
+    super();
+    this.state = { loaded: false };
   }
+  
 
   render() {
     return (
@@ -16,21 +17,32 @@ class Resource extends Component {
         <div className="card">
           <a href={this.props.resourceUrl} onClick={this.incrementViewCount} target="_blank">
             <div className="card-img-top">
-              <img className="sourceImage img-fluid"
-                src={this.props.imageUrl}
+              { this.state.loaded ? null :
+                <div
+                  style={{
+                    background: '#efefef',
+                    height: '100%',
+                    width: '100%',
+                  }}
+                />
+              }
+              <img
+                className="sourceImage"
                 alt={this.props.title}
+                style={this.state.loaded ? {} : { display: 'none' }}
+                src={this.props.imageUrl}
+                onLoad={() => this.setState({ loaded: true })}
               />
             </div>
             <div className="card-body">
-              <div className="projectType"><p>{this.props.source}</p></div>
+              <div className="projectType pb-2"><p>{this.props.source}</p></div>
               <div className="sourceTitle"><h3>{this.props.title}</h3></div>
               <div className="sourceDescription card-text"><small>{this.props.description}</small></div>
             </div>
           </a>
           <div className="card-footer">
             <div className="footerLeft">
-              <div className="viewCount">{this.state.count}</div>
-              <i className="fas fa-eye"></i>
+              {/* <i className="fas fa-eye"></i> */}
             </div>
             <div className="footerRight">
             </div>

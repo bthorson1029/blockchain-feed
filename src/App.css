@@ -3,6 +3,10 @@ a, a:hover {
     text-decoration: none;
 }
 
+.col-md-4.col-lg-3.col-sm-6.mb-4 {
+  transition: all 0.5s ease;
+}
+
 .cardContainer  {
   height: 100%;
 }
@@ -38,11 +42,25 @@ a, a:hover {
   font-size: 1.25rem;
   line-height: 1.5rem;
   margin-top: -1rem;
-
+  white-space: nowrap;
+  width: 100%;                   /* IE6 needs any width */
+  overflow: hidden;              /* "overflow" value must be different from  visible"*/ 
+  -o-text-overflow: ellipsis;    /* Opera < 11*/
+  text-overflow:    ellipsis;    /* IE, Safari (WebKit), Opera >= 11, FF > 6 */
+  max-height: 50px;
 }
 .cardContainer .card .sourceDescription {
   line-height: 1.35rem;
   max-height: 64px;
   text-overflow: ellipsis;
   overflow: hidden;
+}
+
+.cardContainer .card .card-img-top {
+  height: 212px;
+  background-color: #efefef;
+}
+.test {
+  background-color: red !important;
+
 }
