@@ -143,6 +143,17 @@ a, a:hover {
     width: 300px;
     border-radius: 100%;
 }
+.image-loading-container,
+.image-loading {
+  height: 100%;
+  width: 100%;
+  position: relative;
+  border-radius: 100%;
+}
+.image-loading-container #loading-text {
+  margin-top: 64px;
+  width: 100%;
+}
 
 
 .loading-container { margin: 100px auto }

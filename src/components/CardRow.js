@@ -22,10 +22,11 @@ class CardRow extends Component {
     const baseURL = 'https://newsapi.org/v2/everything?';
     const Query = this.state.query;
     const searchQuery = 'q=' + Query + '&';
-    
+    const mainLanguage = "language=" + "en" + "&";
     const url = baseURL + searchQuery +
       'pageSize=24&' +
-      'sortBy=relevancy&' +
+      'sortBy=relevance&' +
+      mainLanguage +
       'apiKey=6fb75bd662324da8ac93021ec495081e';
     const req = new Request(url);
     fetch(req)
@@ -63,10 +64,10 @@ class CardRow extends Component {
     return (
       <div className="container-fluid">
         <div className="row">
-            <div className="col-lg-12">
+            <div className="col-lg-12 pb-4">
               <form className="form-group">
                 <input
-                  placeholder="Search for a topic..."
+                  placeholder="Search keyword..."
                   ref={input => this.search = input}
                   onChange={this.handleInputChange}
                   className="form-control"

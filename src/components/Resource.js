@@ -20,13 +20,12 @@ class Resource extends Component {
           <a href={this.props.resourceUrl} onClick={this.incrementViewCount} target="_blank">
             <div className="card-img-top">
               { this.state.loaded ? null :
-                <div
-                  style={{
-                    background: '#efefef',
-                    height: '100%',
-                    width: '100%',
-                  }}
-                />
+                <div className="image-loading-container">
+                  <div className="image-loading"></div>
+                  <div id="loading-text" className="text-center">
+                    <i className="fas fa-eye pl-2"></i> <br/>Oops. Image Error.
+                  </div>
+                </div>
               }
               <img
                 className="sourceImage"
@@ -44,7 +43,7 @@ class Resource extends Component {
           </a>
           <div className="card-footer">
             <div className="footerLeft">
-              {/* <i className="fas fa-eye"></i> */}
+              
               <div className="publishedDate">
                 {(new Date(publishedDate).toDateString())}
               </div>
