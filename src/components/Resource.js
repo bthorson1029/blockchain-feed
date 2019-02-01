@@ -10,17 +10,6 @@ class Resource extends Component {
     this.setState({ count: this.state.count + 1})
   }
 
-  componentWillMount() {
-    localStorage.getItem('viewCount') && this.setState({
-      viewCount: localStorage.getItem('viewCount'),
-      isLoading: false
-    })
-  }
-
-  componentWillUpdate(nextProps, nextState) {
-    localStorage.setItem('viewCount', this.state.count);
-  }
-
   render() {
     return (
       <div className="cardContainer">
@@ -33,7 +22,7 @@ class Resource extends Component {
               />
             </div>
             <div className="card-body">
-              <div className="projectType"><p>{this.props.type}</p></div>
+              <div className="projectType"><p>{this.props.source}</p></div>
               <div className="sourceTitle"><h3>{this.props.title}</h3></div>
               <div className="sourceDescription card-text"><small>{this.props.description}</small></div>
             </div>

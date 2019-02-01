@@ -18,7 +18,7 @@ class CardRow extends Component {
 
   fetchData() {
     const url = 'https://newsapi.org/v2/everything?' +
-      'q=blockchain&' +
+      'q=Atlanta%20Georgia&' +
       'pageSize=24&' +
       'sortBy=popularity&' +
       'apiKey=6fb75bd662324da8ac93021ec495081e';
@@ -29,6 +29,8 @@ class CardRow extends Component {
         {
           id: `${article.source.id}`,
           title: `${article.title}`,
+          author: `${article.author}`,
+          source: `${article.source.name}`,
           description: `${article.description}`,
           date: `${article.publishedAt}`,
           imageUrl: `${article.urlToImage}`,
@@ -46,11 +48,13 @@ class CardRow extends Component {
         <div className="row">
           {
             !isLoading && resources.length > 0 ? resources.map(resource => {
-              const { title, description, date, imageUrl, url, id } = resource;
+              const { title, description, date, imageUrl, url, id, source, author } = resource;
               return <div className="col-md-4 col-lg-3 col-sm-6 mb-4">
                 <Resource
                   id={id}
                   title={title}
+                  author={author}
+                  source={source}
                   description={description}
                   date={date}
                   imageUrl={imageUrl}

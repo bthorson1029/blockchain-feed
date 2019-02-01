@@ -17,10 +17,16 @@ a, a:hover {
 }
 .cardContainer .card .card-footer .footerLeft {
   float: left;
+  display: flex;
+}
+.cardContainer .card .card-footer .footerLeft i {
+  margin-left: 5px;
+  margin-top: 5px;
 }
 .cardContainer .card .card-footer .footerRight {
   float: right;
 }
+
 .cardContainer .card .sourceImage {
   height: 212px;
   width: 100%;
