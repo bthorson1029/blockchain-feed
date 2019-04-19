@@ -1,3 +1,14 @@
+*, 
+*::before, 
+*::after {
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #f7f7f7;
+    overflow-x: hidden;
+}
+
 a, a:hover {
     color: #444444;
     text-decoration: none;
@@ -37,10 +48,15 @@ a, a:hover {
   float: right;
 }
 .cardContainer .card .sourceImage {
-  height: 212px;
+  height: 160px;
   width: 100%;
+  display: flex;
   object-fit: cover;
   justify-content: center;
+  background-color: #efefef;
+}
+.cardContainer .card .card-img-top {
+  height: 160px;
   background-color: #efefef;
 }
 .cardContainer .card .sourceTitle h3 {
@@ -58,10 +74,6 @@ a, a:hover {
   max-height: 64px;
   text-overflow: ellipsis;
   overflow: hidden;
-}
-.cardContainer .card .card-img-top {
-  height: 212px;
-  background-color: #efefef;
 }
 .test {
   background-color: red !important;
@@ -88,27 +100,6 @@ a, a:hover {
     0%  {transform: rotate(0deg);-ms-transform: rotate(0deg); -webkit-transform: rotate(0deg); -o-transform: rotate(0deg); -moz-transform: rotate(0deg);}
     100% {transform: rotate(360deg);-ms-transform: rotate(360deg); -webkit-transform: rotate(360deg); -o-transform: rotate(360deg); -moz-transform: rotate(360deg);}
 }
-
-@keyframes rotate-loading {
-    0%  {transform: rotate(0deg);-ms-transform: rotate(0deg); -webkit-transform: rotate(0deg); -o-transform: rotate(0deg); -moz-transform: rotate(0deg);}
-    100% {transform: rotate(360deg);-ms-transform: rotate(360deg); -webkit-transform: rotate(360deg); -o-transform: rotate(360deg); -moz-transform: rotate(360deg);}
-}
-
-@-moz-keyframes rotate-loading {
-    0%  {transform: rotate(0deg);-ms-transform: rotate(0deg); -webkit-transform: rotate(0deg); -o-transform: rotate(0deg); -moz-transform: rotate(0deg);}
-    100% {transform: rotate(360deg);-ms-transform: rotate(360deg); -webkit-transform: rotate(360deg); -o-transform: rotate(360deg); -moz-transform: rotate(360deg);}
-}
-
-@-webkit-keyframes rotate-loading {
-    0%  {transform: rotate(0deg);-ms-transform: rotate(0deg); -webkit-transform: rotate(0deg); -o-transform: rotate(0deg); -moz-transform: rotate(0deg);}
-    100% {transform: rotate(360deg);-ms-transform: rotate(360deg); -webkit-transform: rotate(360deg); -o-transform: rotate(360deg); -moz-transform: rotate(360deg);}
-}
-
-@-o-keyframes rotate-loading {
-    0%  {transform: rotate(0deg);-ms-transform: rotate(0deg); -webkit-transform: rotate(0deg); -o-transform: rotate(0deg); -moz-transform: rotate(0deg);}
-    100% {transform: rotate(360deg);-ms-transform: rotate(360deg); -webkit-transform: rotate(360deg); -o-transform: rotate(360deg); -moz-transform: rotate(360deg);}
-}
-
 @keyframes loading-text-opacity {
     0%  {opacity: 0}
     20% {opacity: 0}

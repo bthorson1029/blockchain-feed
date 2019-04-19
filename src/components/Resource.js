@@ -9,15 +9,13 @@ class Resource extends Component {
     super();
     this.state = { loaded: false };
   }
-  
-  
 
   render() {
     const publishedDate = this.props.date;
     return (
       <div className="cardContainer">
         <div className="card">
-          <a href={this.props.resourceUrl} onClick={this.incrementViewCount} target="_blank">
+          <a href={this.props.resourceUrl} onClick={this.incrementViewCount} target="_blank" rel="noopener noreferrer">
             <div className="card-img-top">
               { this.state.loaded ? null :
                 <div className="image-loading-container">

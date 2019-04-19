@@ -8,8 +8,10 @@ class CardRow extends Component {
   constructor(props) {
     super(props)
     this.state = {
+      endpoint: 'top-headlines',
+      category: '',
       isLoading: true,
-      query: 'news',
+      query: 'texas',
       resources: []
     }
   }
@@ -18,16 +20,20 @@ class CardRow extends Component {
     this.fetchData();
   }
 
+
   fetchData() {
-    const baseURL = 'https://newsapi.org/v2/everything?';
+    const baseURL = 'https://newsapi.org/v2/' + this.state.endpoint + '?';
     const Query = this.state.query;
+    // const Category = this.state.category;
     const searchQuery = 'q=' + Query + '&';
-    const mainLanguage = "language=" + "en" + "&";
-    const url = baseURL + searchQuery +
-      'pageSize=24&' +
-      'sortBy=relevance&' +
-      mainLanguage +
-      'apiKey=6fb75bd662324da8ac93021ec495081e';
+    const mainLanguage = "language=en&";
+    const url = baseURL + 
+                // searchQuery +
+                'pageSize=24&' + // Number of results
+                'sortBy=relevance&' +
+                mainLanguage +
+                'apiKey=6fb75bd662324da8ac93021ec495081e';
+
     const req = new Request(url);
     fetch(req)
       .then(res => res.json())
@@ -46,24 +52,25 @@ class CardRow extends Component {
       .then(resources => this.setState({ resources, isLoading: false }))
       .catch(error => console.log('parsing failed', error))
   }
-  handleInputChange = () => {
-    this.setState({
-      query: this.search.value
-    }, () => {
-      if (this.state.query && this.state.query.length > 1) {
-        if (this.state.query.length % 2 === 0) {
-          this.fetchData()
-        }
-      } else if (!this.state.query) {
-      }
-    })
-  }
+  
+  // handleInputChange = () => {
+  //   this.setState({
+  //     query: this.search.value.trim()
+  //   }, () => {
+  //     if (this.state.query && this.state.query.length > 1) {
+  //       if (this.state.query.length % 2 === 0) {
+  //         this.fetchData()
+  //       }
+  //     } else if (!this.state.query) {
+  //     }
+  //   })
+  // }
 
   render() {
     const { isLoading, resources } = this.state;
     return (
-      <div className="container-fluid">
-        <div className="row">
+      <div className="pt-5 container">
+        {/* <div className="row">
             <div className="col-lg-12 pb-4">
               <form className="form-group">
                 <input
@@ -74,13 +81,13 @@ class CardRow extends Component {
                 />
               </form>
             </div>
-        </div>
+        </div> */}
         <div className="row">
           {
             !isLoading && resources.length > 0 ? resources.map(resource => {
               const { title, description, date, imageUrl, url, id, source, author } = resource;
               return (
-                <div className="col-md-4 col-lg-3 col-sm-6 mb-4">
+                <div className="col-md-4 col-lg-4 col-sm-6 mb-4">
                   <Resource
                     id={id}
                     title={title}
