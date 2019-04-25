@@ -11,7 +11,7 @@ class CardRow extends Component {
       endpoint: 'everything',
       category: '',
       isLoading: true,
-      query: 'technology',
+      query: 'UX%20Design',
       resources: []
     }
   }
@@ -24,12 +24,15 @@ class CardRow extends Component {
   fetchData() {
     const baseURL = 'https://newsapi.org/v2/' + this.state.endpoint + '?';
     const Query = this.state.query;
+    const articleCount = 12;
     // const Category = this.state.category;
     const searchQuery = 'q=' + Query + '&';
     const mainLanguage = "language=en&";
     const url = baseURL + 
                 searchQuery +
-                'pageSize=6&' + // Number of results
+                'pageSize=' +  
+                articleCount +
+                '&' + // Number of results
                 'sortBy=relevance&' +
                 mainLanguage +
                 'apiKey=6fb75bd662324da8ac93021ec495081e';
@@ -69,10 +72,10 @@ class CardRow extends Component {
   render() {
     const { isLoading, resources } = this.state;
     return (
-      <div className="pt-5 container">
+      <div className="pt-5 container-fluid articleContainer">
         <div className="row">
-            <div className="col-lg-12 pb-4">
-              <form className="form-group">
+            <div className="col-lg-12 mb-4">
+            <form className="form-group" onSubmit={(e) => e.preventDefault()}>
                 <input
                   placeholder="Search keyword..."
                   ref={input => this.search = input}
@@ -87,7 +90,7 @@ class CardRow extends Component {
             !isLoading && resources.length > 0 ? resources.map(resource => {
               const { title, description, date, imageUrl, url, id, source, author } = resource;
               return (
-                <div className="col-md-4 col-lg-4 col-sm-6 mb-4">
+                <div className="col-md-4 col-lg-3 col-sm-6 mb-4">
                   <Resource
                     id={id}
                     title={title}

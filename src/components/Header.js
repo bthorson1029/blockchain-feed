@@ -11,13 +11,13 @@ class Header extends Component {
     return(
       <div className="header">
         <div className="row">
-          <div className="intro col-lg-12 pt-4 pb-4">
-            <h2>Your News</h2>
+          <div className="intro col-lg-12">
+            <h2 className="headerTitle">Your News</h2>
             <div className="text-right">
               <h2>{time.toDateString()}</h2>
               <h2><Clock
-                style={{ fontSize: '1.35em' }}
-                format={'h:mm:ss'}
+                style={{ fontSize: '1.35em', fontWeight: '300' }}
+                format={'h:mm a'}
                 ticking={true} /></h2>
             </div>
           </div>

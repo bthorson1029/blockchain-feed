@@ -7,7 +7,6 @@ class Loader extends Component {
     return(
       <div className="loading-container">
         <div className="loading"></div>
-        <div id="loading-text" className="text-center">Loading...</div>
       </div>
     )
   }

@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
-import { BrowserRouter as Router, Route, Link } from "react-router-dom";
-
-
+import ArticleCard from './ArticleCard.js';
 
 class Resource extends Component {
 
@@ -12,38 +10,39 @@ class Resource extends Component {
 
   render() {
     const publishedDate = this.props.date;
-    const {resourceUrl, title, imageUrl, source, description } = this.props;
+    const {resourceUrl, title, imageUrl, source, description, id } = this.props;
     return (
       <div className="cardContainer">
-        <div className="card">
+        {this.state.loaded ? 
+          <ArticleCard publishedDate={publishedDate} 
+                       title={title} 
+                       source={source} 
+                       resourceUrl={resourceUrl} 
+                       imageUrl={imageUrl} 
+                       description={description}
+                       key={id} 
+            /> :
+          <div className="card" onLoad={() => this.setState({ loaded: true })}>
           <a href={resourceUrl} onClick={this.incrementViewCount} target="_blank" rel="noopener noreferrer">
-            <div className="card-img-top">
-              { this.state.loaded ? null :
-                <div className="image-loading-container">
-                  <div className="image-loading"></div>
-                  <div id="loading-text" className="text-center">
-                    <i className="fas fa-eye pl-2"></i> <br/>Oops. Image Error.
-                  </div>
-                </div>
-              }
+            <div className="card-img-top loading">
               <img
-                className="sourceImage"
-                alt={title}
-                style={this.state.loaded ? {} : { display: 'none' }}
+                className="sourceImage loading"
+                alt="Loading"
                 src={imageUrl}
-                onLoad={() => this.setState({ loaded: true })}
               />
             </div>
             <div className="card-body">
-              <div className="projectType pb-2"><p>{source}</p></div>
-              <div className="sourceTitle"><h3>{title}</h3></div>
-              <div className="sourceDescription card-text"><small>{description}</small></div>
+              <div className="projectType loading"><p></p></div>
+              <div className="sourceTitle loading"><h3></h3></div>
+              <div className="sourceDescription card-text loading mt-4"><small></small></div>
+              <div className="sourceDescription card-text loading alt"><small></small></div>
+              <div className="sourceDescription card-text loading alt-2"><small></small></div>
             </div>
           </a>
           <div className="card-footer">
             <div className="footerLeft">
               
-              <div className="publishedDate">
+              <div className="publishedDate loading">
                 {(new Date(publishedDate).toDateString())}
               </div>
             </div>
@@ -51,6 +50,7 @@ class Resource extends Component {
             </div>
           </div>
         </div>
+          }
       </div>
     );
   };
