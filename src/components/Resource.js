@@ -12,10 +12,11 @@ class Resource extends Component {
 
   render() {
     const publishedDate = this.props.date;
+    const {resourceUrl, title, imageUrl, source, description } = this.props;
     return (
       <div className="cardContainer">
         <div className="card">
-          <a href={this.props.resourceUrl} onClick={this.incrementViewCount} target="_blank" rel="noopener noreferrer">
+          <a href={resourceUrl} onClick={this.incrementViewCount} target="_blank" rel="noopener noreferrer">
             <div className="card-img-top">
               { this.state.loaded ? null :
                 <div className="image-loading-container">
@@ -27,16 +28,16 @@ class Resource extends Component {
               }
               <img
                 className="sourceImage"
-                alt={this.props.title}
+                alt={title}
                 style={this.state.loaded ? {} : { display: 'none' }}
-                src={this.props.imageUrl}
+                src={imageUrl}
                 onLoad={() => this.setState({ loaded: true })}
               />
             </div>
             <div className="card-body">
-              <div className="projectType pb-2"><p>{this.props.source}</p></div>
-              <div className="sourceTitle"><h3>{this.props.title}</h3></div>
-              <div className="sourceDescription card-text"><small>{this.props.description}</small></div>
+              <div className="projectType pb-2"><p>{source}</p></div>
+              <div className="sourceTitle"><h3>{title}</h3></div>
+              <div className="sourceDescription card-text"><small>{description}</small></div>
             </div>
           </a>
           <div className="card-footer">

@@ -16,6 +16,12 @@ a, a:hover {
 .col-md-4.col-lg-3.col-sm-6.mb-4 {
   transition: all 0.5s ease;
 }
+.header .row .intro {
+  display: flex;
+  justify-content: space-between;
+  background-color: white;
+  padding: 2rem 2rem;
+}
 .cardContainer  {
   height: 100%;
 }
