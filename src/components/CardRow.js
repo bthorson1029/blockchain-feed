@@ -2,7 +2,12 @@ import React, { Component } from 'react';
 import logo from '../logo.svg';
 import Resource from './Resource';
 import Loader from './Loader';
+import CryptoNewsApi from 'crypto-news-api'
 
+
+
+// Crypto News API Key 172fe1fe3990c938aa46e5a814a853ea
+// News API Key 6fb75bd662324da8ac93021ec495081e
 
 class CardRow extends Component {
   constructor(props) {
@@ -11,31 +16,51 @@ class CardRow extends Component {
       endpoint: 'everything',
       category: '',
       isLoading: true,
-      query: 'UX%20Design',
-      resources: []
+      query: 'Clowns',
+      mainResources: []
     }
   }
 
-  componentWillMount() {
-    this.fetchData();
+  getCryptoAPI = () => {
+    const cryptoAPIKey = '172fe1fe3990c938aa46e5a814a853ea';
+    const Api = new CryptoNewsApi(cryptoAPIKey);
+    
+    Api.enableSentiment()
+
+    Api.getLatestNews()
+      .then(articles => articles.map(article => (
+        {
+          id: `${article._id}`,
+          title: `${article.title}`,
+          author: `${article.author}`,
+          source: `${article.source.name}`,
+          description: `${article.description}`,
+          date: `${article.publishedAt}`,
+          imageUrl: `${article.originalImageUrl}`,
+          url: `${article.url}`
+        }
+      )))
+      .catch(error => console.error(error))
+      .then(mainResources => this.setState({ mainResources, isLoading: false }))
   }
 
-
-  fetchData() {
+  getNewsAPI = () => {
+    const newsAPIKey = '6fb75bd662324da8ac93021ec495081e';
     const baseURL = 'https://newsapi.org/v2/' + this.state.endpoint + '?';
     const Query = this.state.query;
     const articleCount = 12;
     // const Category = this.state.category;
     const searchQuery = 'q=' + Query + '&';
     const mainLanguage = "language=en&";
-    const url = baseURL + 
+    const url = baseURL +
                 searchQuery +
-                'pageSize=' +  
+                'pageSize=' +
                 articleCount +
                 '&' + // Number of results
                 'sortBy=relevance&' +
                 mainLanguage +
-                'apiKey=6fb75bd662324da8ac93021ec495081e';
+                'apiKey=' +
+                newsAPIKey;
 
     const req = new Request(url);
     fetch(req)
@@ -52,28 +77,37 @@ class CardRow extends Component {
           url: `${article.url}`
         }
       )))
-      .then(resources => this.setState({ resources, isLoading: false }))
+      .then(mainResources => this.setState({ mainResources, isLoading: false }))
       .catch(error => console.log('parsing failed', error))
-  }
-  
-  handleInputChange = () => {
-    this.setState({
-      query: this.search.value.trim()
-    }, () => {
-      if (this.state.query && this.state.query.length > 1) {
-        if (this.state.query.length % 2 === 0) {
-          this.fetchData()
-        }
-      } else if (!this.state.query) {
-      }
-    })
+    this.getCryptoAPI();
   }
 
+  fetchData = () => {
+    this.getNewsAPI();
+  }
+
+  componentWillMount() {
+    this.fetchData();
+  }
+  
+  // handleInputChange = () => {
+  //   this.setState({
+  //     query: this.search.value.trim()
+  //   }, () => {
+  //     if (this.state.query && this.state.query.length > 1) {
+  //       if (this.state.query.length % 2 === 0) {
+  //         this.fetchData()
+  //       }
+  //     } else if (!this.state.query) {
+  //     }
+  //   })
+  // }
+
   render() {
-    const { isLoading, resources } = this.state;
+    const { isLoading, mainResources } = this.state;
     return (
       <div className="pt-5 container-fluid articleContainer">
-        <div className="row">
+        {/* <div className="row">
             <div className="col-lg-12 mb-4">
             <form className="form-group" onSubmit={(e) => e.preventDefault()}>
                 <input
@@ -84,28 +118,32 @@ class CardRow extends Component {
                 />
               </form>
             </div>
-        </div>
+        </div> */}
         <div className="row">
-          {
-            !isLoading && resources.length > 0 ? resources.map(resource => {
-              const { title, description, date, imageUrl, url, id, source, author } = resource;
-              return (
-                <div className="col-md-4 col-lg-3 col-sm-6 mb-4">
-                  <Resource
-                    id={id}
-                    title={title}
-                    author={author}
-                    source={source}
-                    description={description}
-                    date={date}
-                    imageUrl={imageUrl}
-                    resourceUrl={url}
-                    key={id+title}
-                  />
-                </div>
-              )
-            }) :  <Loader /> 
-            }
+          <div className="col-lg-6">
+          </div>
+          <div className="col-lg-6 row">
+            {
+              !isLoading && mainResources.length > 0 ? mainResources.map(resource => {
+                const { title, description, date, imageUrl, url, id, source, author } = resource;
+                return (
+                  <div className="col-md-6 col-lg-6 col-sm-12 mb-4">
+                    <Resource
+                      id={id}
+                      title={title}
+                      author={author}
+                      source={source}
+                      description={description}
+                      date={date}
+                      imageUrl={imageUrl}
+                      resourceUrl={url}
+                      key={id+title}
+                    />
+                  </div>
+                )
+              }) :  <Loader /> 
+              }
+          </div>
         </div>
       </div>
     )
