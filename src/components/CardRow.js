@@ -16,8 +16,8 @@ class CardRow extends Component {
       endpoint: 'everything',
       category: '',
       isLoading: true,
-      query: 'Clowns',
-      mainResources: []
+      query: 'cryptocurrency',
+      resources: []
     }
   }
 
@@ -41,7 +41,7 @@ class CardRow extends Component {
         }
       )))
       .catch(error => console.error(error))
-      .then(mainResources => this.setState({ mainResources, isLoading: false }))
+      .then(cryptoResources => this.setState({ resources: [...this.state.resources, ...this.state.resources.concat(cryptoResources)], isLoading: false }))
   }
 
   getNewsAPI = () => {
@@ -77,13 +77,13 @@ class CardRow extends Component {
           url: `${article.url}`
         }
       )))
-      .then(mainResources => this.setState({ mainResources, isLoading: false }))
+      .then(resources => this.setState({ resources: resources, isLoading: false }))
       .catch(error => console.log('parsing failed', error))
-    this.getCryptoAPI();
   }
 
   fetchData = () => {
-    this.getNewsAPI();
+    this.getNewsAPI(this.getCryptoAPI());
+
   }
 
   componentWillMount() {
@@ -104,7 +104,7 @@ class CardRow extends Component {
   // }
 
   render() {
-    const { isLoading, mainResources } = this.state;
+    const { isLoading, resources } = this.state;
     return (
       <div className="pt-5 container-fluid articleContainer">
         {/* <div className="row">
@@ -124,7 +124,7 @@ class CardRow extends Component {
           </div>
           <div className="col-lg-6 row">
             {
-              !isLoading && mainResources.length > 0 ? mainResources.map(resource => {
+              !isLoading && resources.length > 0 ? resources.map(resource => {
                 const { title, description, date, imageUrl, url, id, source, author } = resource;
                 return (
                   <div className="col-md-6 col-lg-6 col-sm-12 mb-4">
@@ -143,6 +143,7 @@ class CardRow extends Component {
                 )
               }) :  <Loader /> 
               }
+            {console.log(this.state.resources)}
           </div>
         </div>
       </div>
