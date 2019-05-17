@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import logo from '../logo.svg';
 import Resource from './Resource';
+import CoinDetails from './CoinDetails';
 import Loader from './Loader';
 import CryptoNewsApi from 'crypto-news-api'
 
@@ -17,38 +18,18 @@ class CardRow extends Component {
       category: '',
       isLoading: true,
       query: 'cryptocurrency',
-      resources: []
+      resources: [],
+      coinDetails: [],
+      coinSelection: 'bitcoin'
     }
   }
 
-  getCryptoAPI = () => {
-    const cryptoAPIKey = '172fe1fe3990c938aa46e5a814a853ea';
-    const Api = new CryptoNewsApi(cryptoAPIKey);
-    
-    Api.enableSentiment()
 
-    Api.getLatestNews()
-      .then(articles => articles.map(article => (
-        {
-          id: `${article._id}`,
-          title: `${article.title}`,
-          author: `${article.author}`,
-          source: `${article.source.name}`,
-          description: `${article.description}`,
-          date: `${article.publishedAt}`,
-          imageUrl: `${article.originalImageUrl}`,
-          url: `${article.url}`
-        }
-      )))
-      .catch(error => console.error(error))
-      .then(cryptoResources => this.setState({ resources: [...this.state.resources, ...this.state.resources.concat(cryptoResources)], isLoading: false }))
-  }
-
-  getNewsAPI = () => {
+  fetchData = () => {
     const newsAPIKey = '6fb75bd662324da8ac93021ec495081e';
     const baseURL = 'https://newsapi.org/v2/' + this.state.endpoint + '?';
     const Query = this.state.query;
-    const articleCount = 12;
+    const articleCount = 24;
     // const Category = this.state.category;
     const searchQuery = 'q=' + Query + '&';
     const mainLanguage = "language=en&";
@@ -57,7 +38,7 @@ class CardRow extends Component {
                 'pageSize=' +
                 articleCount +
                 '&' + // Number of results
-                'sortBy=relevance&' +
+                'sortBy=popularity&' +
                 mainLanguage +
                 'apiKey=' +
                 newsAPIKey;
@@ -67,7 +48,7 @@ class CardRow extends Component {
       .then(res => res.json())
       .then(data => data.articles.map(article => (
         {
-          id: `${article.source.id}`,
+          id: `${window.btoa(Math.random())}`,
           title: `${article.title}`,
           author: `${article.author}`,
           source: `${article.source.name}`,
@@ -77,19 +58,72 @@ class CardRow extends Component {
           url: `${article.url}`
         }
       )))
-      .then(resources => this.setState({ resources: resources, isLoading: false }))
+      .then(resources => this.setState({ resources, isLoading: true }))
       .catch(error => console.log('parsing failed', error))
+
+    const cryptoAPIKey = '172fe1fe3990c938aa46e5a814a853ea';
+    const Api = new CryptoNewsApi(cryptoAPIKey);
+
+      Api.enableSentiment()
+
+      Api.getTopNews()
+        .then(articles => articles.map(article => (
+          {
+            id: `${window.btoa(Math.random())}`,
+            title: `${article.title}`,
+            author: `${article.author}`,
+            source: `${article.source.name}`,
+            description: `${article.description}`,
+            date: `${article.publishedAt}`,
+            imageUrl: `${article.originalImageUrl}`,
+            url: `${article.url}`
+          }
+        )))
+        .catch(error => console.error(error))
+        .then(cryptoResources => this.setState({ resources: [...this.state.resources.concat(cryptoResources)], isLoading: false }))
+        
+        Api.getCoinDetails(this.state.coinSelection)
+        .then(details =>  this.setState({ coinDetails: details}))
+        .catch(err => console.error(err))
+    }
+
+  fetchCoinData = () => {
+    const cryptoAPIKey = '172fe1fe3990c938aa46e5a814a853ea';
+    const Api = new CryptoNewsApi(cryptoAPIKey);
+    
+    Api.getCoinDetails(this.state.coinSelection)
+      .then(details => this.setState({ coinDetails: details }))
+      .catch(err => console.error(err))
+  }
+  
+  selectCoin = () => {
+    this.setState({ coinSelection: 'ethereum' });
   }
 
-  fetchData = () => {
-    this.getNewsAPI(this.getCryptoAPI());
-
-  }
 
   componentWillMount() {
     this.fetchData();
   }
   
+  componentWillUpdate() {
+    this.fetchCoinData();
+  }
+
+
+  shuffle = (array) => {
+    let m = array.length, t, i;
+    // While there remain elements to shuffle…
+    while (m) {
+      // Pick a remaining element…
+      i = Math.floor(Math.random() * m--);
+      // And swap it with the current element.
+      t = array[m];
+      array[m] = array[i];
+      array[i] = t;
+    }
+    return array;
+  }
+
   // handleInputChange = () => {
   //   this.setState({
   //     query: this.search.value.trim()
@@ -104,9 +138,9 @@ class CardRow extends Component {
   // }
 
   render() {
-    const { isLoading, resources } = this.state;
+    const { isLoading, resources, coinDetails } = this.state;
     return (
-      <div className="pt-5 container-fluid articleContainer">
+      <div className="container-fluid articleContainer">
         {/* <div className="row">
             <div className="col-lg-12 mb-4">
             <form className="form-group" onSubmit={(e) => e.preventDefault()}>
@@ -120,14 +154,28 @@ class CardRow extends Component {
             </div>
         </div> */}
         <div className="row">
-          <div className="col-lg-6">
+          <div className="col-lg-6 leftColumn">
+          <div className="row">
+            <div className="col-lg-12 rowTop"></div>
+            <div className="col-lg-12 rowBottom">
+              <CoinDetails 
+                description={coinDetails.description}
+                links={coinDetails.links}
+                twitterUsernames={coinDetails.twitterUsernames}
+                subreddits={coinDetails.subreddits}
+              />
+              <button className="btn btn-primary" onClick={this.selectCoin}>Ethereum</button>
+            </div>
           </div>
-          <div className="col-lg-6 row">
+          </div>
+          <div className="col-lg-6 ml-0 mr-0 rightColumn">
+          <h3 className="pl-3">Article Feed</h3>
+            <div className="articleArea row">
             {
               !isLoading && resources.length > 0 ? resources.map(resource => {
                 const { title, description, date, imageUrl, url, id, source, author } = resource;
                 return (
-                  <div className="col-md-6 col-lg-6 col-sm-12 mb-4">
+                  <div className="col-lg-6 mb-4">
                     <Resource
                       id={id}
                       title={title}
@@ -137,15 +185,16 @@ class CardRow extends Component {
                       date={date}
                       imageUrl={imageUrl}
                       resourceUrl={url}
-                      key={id+title}
+                      key={id}
                     />
                   </div>
                 )
               }) :  <Loader /> 
               }
-            {console.log(this.state.resources)}
+              </div>
           </div>
         </div>
+        {/* {console.log(this.shuffle(this.state.resources))} */}
       </div>
     )
   }

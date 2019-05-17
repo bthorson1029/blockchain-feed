@@ -26,8 +26,7 @@ a, a:hover {
   margin-top: 28px;
 }
 .container-fluid.articleContainer {
-  overflow-y: auto;
-  height: calc(100vh - 160px);
+  height: 100%;
 }
 .cardContainer  {
   height: 100%;
@@ -106,7 +105,7 @@ a, a:hover {
   margin-top: 1rem;
 }
 .cardContainer .card .sourceDescription {
-  line-height: 1.35rem;
+  line-height: 1.25rem;
   max-height: 64px;
   text-overflow: ellipsis;
   overflow: hidden;
@@ -119,6 +118,33 @@ a, a:hover {
 
 .test {
   background-color: red !important;
+
+}
+.rightColumn {
+  background-color: white;
+  padding-top: 1rem;
+}
+.articleArea {
+  overflow-x: hidden;
+  overflow-y: scroll;
+  height: 100vh;
+  padding-bottom: 2rem;
+  padding-top: 1rem;
+}
+.leftColumn {
+  padding-left: 2rem;
+}
+.rowTop {
+  background-color: lavender;
+  border: 1px solid gray;
+  height: 100px;
+}
+.rowBottom {
+  border: 1px solid gray;
+  height: 550px;
+}
+.rightColumn > h3 {
+  height: 36px;
 
 }
 

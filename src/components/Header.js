@@ -12,7 +12,7 @@ class Header extends Component {
       <div className="header">
         <div className="row">
           <div className="intro col-lg-12">
-            <h2 className="headerTitle">CryptoBeam</h2>
+            <h2 className="headerTitle">Vesto</h2>
             <div className="text-right">
               <h2>{time.toDateString()}</h2>
               <h2><Clock
