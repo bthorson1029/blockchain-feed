@@ -27,7 +27,7 @@ a, a:hover {
 }
 .container-fluid.articleContainer {
   height: 100%;
-  overflow-y: scroll;
+  overflow: hidden;
 }
 .cardContainer  {
   height: 100%;
@@ -130,6 +130,7 @@ a, a:hover {
   padding-bottom: 2rem;
   padding-top: 1rem;
   background-color: #F9F9FA;
+  overflow-y: scroll;
 }
 .leftColumn {
   padding-left: 2rem;

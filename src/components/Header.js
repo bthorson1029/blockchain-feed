@@ -14,9 +14,9 @@ class Header extends Component {
           <div className="intro col-lg-12">
             <h2 className="headerTitle">Vesto</h2>
             <div className="text-right">
-              <h2>{time.toDateString()}</h2>
+              <h5 className="mb-0">{time.toDateString()}</h5>
               <h2><Clock
-                style={{ fontSize: '1.35em', fontWeight: '300' }}
+                style={{ fontSize: '1.5em', fontWeight: '300' }}
                 format={'h:mm a'}
                 ticking={true} /></h2>
             </div>

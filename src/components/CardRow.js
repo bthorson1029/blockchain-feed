@@ -19,8 +19,7 @@ class CardRow extends Component {
       isLoading: true,
       query: 'cryptocurrency',
       resources: [],
-      coinDetails: [],
-      coinSelection: 'bitcoin'
+      coins: []
     }
   }
 
@@ -81,11 +80,31 @@ class CardRow extends Component {
         )))
         .catch(error => console.error(error))
         .then(cryptoResources => this.setState({ resources: [...this.state.resources.concat(cryptoResources)], isLoading: false }))
-        
-        Api.getCoinDetails(this.state.coinSelection)
-        .then(details =>  this.setState({ coinDetails: details}))
-        .catch(err => console.error(err))
-    }
+    
+    
+    // const coinUrl = 'https://production.api.coindesk.com/v1/currency/ticker?currencies=BTC,ETH,LTC,XRP,BCH';
+    // const coinReq = new Request(coinUrl);
+    // fetch(coinReq)
+    //   .then(res => console.log(res.json()))
+    //   // .then(data => data.currency.map(currency => (
+    //   //   {
+    //   //     id: `${window.btoa(Math.random())}`,
+    //   //     name: `${currency.name}`,
+    //   //     iso: `${currency.iso}`,
+    //   //     circulatingSupply: `${currency.circulatingSupply}`,
+    //   //     priceInBTC: `${currency.priceInBTC}`,
+    //   //     currency: `${currency.quotes.USD.name}`,
+    //   //     currencyISO: `${currency.quotes.USD.iso}`,
+    //   //     change24Hr: `${currency.quotes.USD.change24Hr}`,
+    //   //     price: `${currency.quotes.USD.price}`,
+    //   //     marketCap: `${currency.quotes.USD.marketCap}`
+    //   //   }
+    //   // )))
+    //   // .then(coins => this.setState({ coins, isLoading: true }))
+    //   .catch(error => console.log('parsing failed', error))
+      }
+
+   
 
   
 
@@ -127,7 +146,7 @@ class CardRow extends Component {
   // }
 
   render() {
-    const { isLoading, resources, coinDetails } = this.state;
+    const { isLoading, resources, coins } = this.state;
     return (
       <div className="container-fluid articleContainer">
         {/* <div className="row">
@@ -143,13 +162,37 @@ class CardRow extends Component {
             </div>
         </div> */}
         <div className="row">
-          <div className="col-lg-8 offset-lg-2 mt-4">
-            <div className="articleArea row">
+          <nav className="col-md-2 d-none d-md-block bg-dark sidebar">
+            <div className="sidebar sticky">
+            {
+              !isLoading && coins.length > 0 ? coins.map(coin => {
+                const { title, description, date, imageUrl, url, id, source, author } = coin;
+                return (
+                  <div className="col-lg-12 mb-4">
+                    <Resource
+                      id={id}
+                      title={title}
+                      author={author}
+                      source={source}
+                      description={description}
+                      date={date}
+                      imageUrl={imageUrl}
+                      resourceUrl={url}
+                      key={id}
+                    />
+                  </div>
+                )
+              }) :  <Loader /> 
+              }
+            </div>
+          </nav>
+          <div className="col-lg-10 articleArea mt-4">
+            <div className="row">
             {
               !isLoading && resources.length > 0 ? resources.map(resource => {
                 const { title, description, date, imageUrl, url, id, source, author } = resource;
                 return (
-                  <div className="col-lg-4 mb-4">
+                  <div className="col-lg-3 mb-4">
                     <Resource
                       id={id}
                       title={title}
