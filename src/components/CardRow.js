@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import logo from '../logo.svg';
+// import logo from '../logo.svg';
 import Resource from './Resource';
 import CoinDetails from './CoinDetails';
 import Loader from './Loader';
@@ -87,27 +87,16 @@ class CardRow extends Component {
         .catch(err => console.error(err))
     }
 
-  fetchCoinData = () => {
-    const cryptoAPIKey = '172fe1fe3990c938aa46e5a814a853ea';
-    const Api = new CryptoNewsApi(cryptoAPIKey);
-    
-    Api.getCoinDetails(this.state.coinSelection)
-      .then(details => this.setState({ coinDetails: details }))
-      .catch(err => console.error(err))
-  }
   
-  selectCoin = () => {
-    this.setState({ coinSelection: 'ethereum' });
-  }
 
 
   componentWillMount() {
     this.fetchData();
   }
   
-  componentWillUpdate() {
-    this.fetchCoinData();
-  }
+  // componentDidUpdate() {
+    
+  // }
 
 
   shuffle = (array) => {
@@ -154,28 +143,13 @@ class CardRow extends Component {
             </div>
         </div> */}
         <div className="row">
-          <div className="col-lg-6 leftColumn">
-          <div className="row">
-            <div className="col-lg-12 rowTop"></div>
-            <div className="col-lg-12 rowBottom">
-              <CoinDetails 
-                description={coinDetails.description}
-                links={coinDetails.links}
-                twitterUsernames={coinDetails.twitterUsernames}
-                subreddits={coinDetails.subreddits}
-              />
-              <button className="btn btn-primary" onClick={this.selectCoin}>Ethereum</button>
-            </div>
-          </div>
-          </div>
-          <div className="col-lg-6 ml-0 mr-0 rightColumn">
-          <h3 className="pl-3">Article Feed</h3>
+          <div className="col-lg-8 offset-lg-2 mt-4">
             <div className="articleArea row">
             {
               !isLoading && resources.length > 0 ? resources.map(resource => {
                 const { title, description, date, imageUrl, url, id, source, author } = resource;
                 return (
-                  <div className="col-lg-6 mb-4">
+                  <div className="col-lg-4 mb-4">
                     <Resource
                       id={id}
                       title={title}
@@ -194,7 +168,6 @@ class CardRow extends Component {
               </div>
           </div>
         </div>
-        {/* {console.log(this.shuffle(this.state.resources))} */}
       </div>
     )
   }
