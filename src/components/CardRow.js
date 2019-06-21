@@ -80,31 +80,12 @@ class CardRow extends Component {
         )))
         .catch(error => console.error(error))
         .then(cryptoResources => this.setState({ resources: [...this.state.resources.concat(cryptoResources)], isLoading: false }))
-    
-    
-    // const coinUrl = 'https://production.api.coindesk.com/v1/currency/ticker?currencies=BTC,ETH,LTC,XRP,BCH';
-    // const coinReq = new Request(coinUrl);
-    // fetch(coinReq)
-    //   .then(res => console.log(res.json()))
-    //   // .then(data => data.currency.map(currency => (
-    //   //   {
-    //   //     id: `${window.btoa(Math.random())}`,
-    //   //     name: `${currency.name}`,
-    //   //     iso: `${currency.iso}`,
-    //   //     circulatingSupply: `${currency.circulatingSupply}`,
-    //   //     priceInBTC: `${currency.priceInBTC}`,
-    //   //     currency: `${currency.quotes.USD.name}`,
-    //   //     currencyISO: `${currency.quotes.USD.iso}`,
-    //   //     change24Hr: `${currency.quotes.USD.change24Hr}`,
-    //   //     price: `${currency.quotes.USD.price}`,
-    //   //     marketCap: `${currency.quotes.USD.marketCap}`
-    //   //   }
-    //   // )))
-    //   // .then(coins => this.setState({ coins, isLoading: true }))
-    //   .catch(error => console.log('parsing failed', error))
-      }
-
+        }
    
+
+  componentDidMount() {
+    this.fetchData();
+  }
 
   
 
@@ -186,8 +167,8 @@ class CardRow extends Component {
               }
             </div>
           </nav>
-          <div className="col-lg-10 articleArea mt-4">
-            <div className="row">
+          <div className="col-lg-10 articleArea">
+            <div className="row pt-4">
             {
               !isLoading && resources.length > 0 ? resources.map(resource => {
                 const { title, description, date, imageUrl, url, id, source, author } = resource;
