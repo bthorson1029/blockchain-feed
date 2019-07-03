@@ -186,6 +186,7 @@ class CardRow extends Component {
                 }) : null
               }
             </div>
+            
           </nav>
           <div className="col-lg-10 articleArea">
             <div className="row pt-4">
@@ -208,6 +209,7 @@ class CardRow extends Component {
                   )
                 }) : <Loader />
               } {console.log(this.shuffle(resources))}
+              {/* <button className="btn btn-secondary mt-0 ml-auto mr-auto mt-5" type="submit">Load more resources</button> */}
             </div>
           </div>
         </div>

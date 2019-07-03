@@ -30,6 +30,9 @@ a, a:hover {
   height: 100%;
   overflow: hidden;
 }
+.articleArea .row {
+  padding-bottom: 20%;
+}
 .cardContainer  {
   height: 100%;
 }
@@ -151,9 +154,10 @@ a, a:hover {
 }
 .coinPrice {
   padding: 0.75rem 0.75rem 0.75rem 1rem;
-  color: #ffffff;
+  color: #7cea9c;
   transition: ease-in-out;
   transition-duration: 100ms;
+  letter-spacing: 1.5px;
 }
 .coinPrice.card {
   background-color: #2a3f4b !important;
@@ -161,8 +165,10 @@ a, a:hover {
   height: 100%;
 }
 .coinPrice h3 {
-  font-size: 1.5rem;
-  color: #7cea9c;
+  font-size: 1.75rem;
+  font-weight: 300;
+  letter-spacing: 1px;
+  color: #ffffff;
 }
 .sidebar {
   background-color: #152c3a !important;
@@ -179,6 +185,12 @@ a, a:hover {
   display: flex;
   flex-direction: column;
   width: 100%;
+  height: calc(100% - 350px);
+}
+.adSpace {
+  height: 200px;
+  width: 100%;
+  border: 1px solid red;
 }
 .coinPrice:hover {
   padding-left: 1.5rem;
