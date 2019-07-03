@@ -3,7 +3,7 @@ import React, { Component, useState, useEffect } from 'react';
 import Resource from './Resource';
 import CoinDetails from './CoinDetails';
 import Loader from './Loader';
-import CryptoNewsApi from 'crypto-news-api'
+import Coins from './Coins';
 
 
 
@@ -120,14 +120,43 @@ class CardRow extends Component {
         resources: [...this.state.resources.concat(coinNewsResponse)], 
         isLoading: false 
       })
-    } catch(error) {
+    } 
+    catch(error) {
       console.log("Error in coin news fetch");
       console.log(error);
+    }
+
+    try {
+      const cryptoCompareKey = '416becedd549a2a36a04e374118496c536b7c12a320c33d55e04bcd02553b4cc';
+      const cryptoCompareUrl = 'https://min-api.cryptocompare.com/data/pricemulti?fsyms=BTC,ETH,XRP,LTC,BCH&tsyms=USD' + '&api_key=' + cryptoCompareKey;
+      const cryptoCompareRequest = await fetch(cryptoCompareUrl);
+      if (!cryptoCompareRequest.ok) {
+        throw Error(cryptoCompareRequest.statusText);
+      }
+      const cryptoCompareResponse = await cryptoCompareRequest.json();
+      console.log(cryptoCompareResponse, "First Error");
+
+      const cryptoCompareMap = Object.keys(cryptoCompareResponse).map(coin => (
+          {
+            name: `${coin}`,
+            price: `${cryptoCompareResponse[coin].USD}`
+          }
+        ));
+      this.setState({
+        coins: cryptoCompareMap,
+        isLoading: false
+      });
+      console.log(cryptoCompareMap);
+      console.log(cryptoCompareResponse.BTC.USD);
+    } 
+    catch(error) {
+      console.log(error);
+      console.log("error in compare");
     }
   }
 
   render() {
-    const { isLoading, resources } = this.state;
+    const { isLoading, resources, coins } = this.state;
     return (
       <div className="container-fluid articleContainer">
         {/* <div className="row">
@@ -145,6 +174,19 @@ class CardRow extends Component {
         <div className="row">
           <nav className="col-md-2 d-none d-md-block bg-dark sidebar">
             <div className="sidebar sticky">
+              {
+                coins.length > 0 ? coins.map(coin => {
+                  const { name, price, id } = coin;
+                  return (
+                    <div className="col" key={id}>
+                      <Coins
+                        name={name}
+                        price={price}
+                       />
+                    </div>
+                  )
+                }) : null
+              }
             </div>
           </nav>
           <div className="col-lg-10 articleArea">
