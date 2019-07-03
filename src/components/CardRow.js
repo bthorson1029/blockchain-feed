@@ -23,73 +23,6 @@ class CardRow extends Component {
     }
   }
 
-  // fetchData = () => {
-  //   const newsAPIKey = '6fb75bd662324da8ac93021ec495081e';
-  //   const baseURL = 'https://newsapi.org/v2/' + this.state.endpoint + '?';
-  //   const Query = this.state.query;
-  //   const articleCount = 24;
-  //   // const Category = this.state.category;
-  //   const searchQuery = 'q=' + Query + '&';
-  //   const mainLanguage = "language=en&";
-  //   const url = baseURL +
-  //               searchQuery +
-  //               'pageSize=' +
-  //               articleCount +
-  //               '&' + // Number of results
-  //               'sortBy=popularity&' +
-  //               mainLanguage +
-  //               'apiKey=' +
-  //               newsAPIKey;
-
-  //   const req = new Request(url);
-  //   fetch(req)
-  //     .then(res => res.json())
-  //     .then(data => data.articles.map(article => (
-  //       {
-  //         id: `${window.btoa(Math.random())}`,
-  //         title: `${article.title}`,
-  //         author: `${article.author}`,
-  //         source: `${article.source.name}`,
-  //         description: `${article.description}`,
-  //         date: `${article.publishedAt}`,
-  //         imageUrl: `${article.urlToImage}`,
-  //         url: `${article.url}`
-  //       }
-  //     )))
-  //     .then(resources => this.setState({ resources, isLoading: true }))
-  //     .catch(error => console.log('parsing failed', error))
-
-  //   const cryptoAPIKey = '172fe1fe3990c938aa46e5a814a853ea';
-  //   const Api = new CryptoNewsApi(cryptoAPIKey);
-
-  //     Api.enableSentiment()
-
-  //     Api.getTopNews()
-  //       .then(articles => articles.map(article => (
-  //         {
-  //           id: `${window.btoa(Math.random())}`,
-  //           title: `${article.title}`,
-  //           author: `${article.author}`,
-  //           source: `${article.source.name}`,
-  //           description: `${article.description}`,
-  //           date: `${article.publishedAt}`,
-  //           imageUrl: `${article.originalImageUrl}`,
-  //           url: `${article.url}`
-  //         }
-  //       )))
-  //       .catch(error => console.error(error))
-  //       .then(cryptoResources => this.setState({ resources: [...this.state.resources.concat(cryptoResources)], isLoading: false }))
-  //       }
-
-
-  // componentDidMount() {
-  //   this.fetchData();
-  // }
-
-  // componentDidUpdate() {
-
-  // }
-
 
   // shuffle = (array) => {
   //   let m = array.length, t, i;
@@ -136,8 +69,11 @@ class CardRow extends Component {
                   mainLanguage +
                   'apiKey=' +
                   newsAPIKey;
-      const req = new Request(url);
-      const newsAPIResponse = await fetch(req); 
+      const req = await new Request(url);
+      const newsAPIResponse = await fetch(req);
+      if (!newsAPIResponse.ok) {
+        throw Error(newsAPIResponse.statusText);
+      }
       const newsJson = await newsAPIResponse.json();
       const data = newsJson.articles.map(article => (
         {
@@ -162,9 +98,12 @@ class CardRow extends Component {
 
     try {
       const cryptoAPIKey = '172fe1fe3990c938aa46e5a814a853ea';
-      const Api = await new CryptoNewsApi(cryptoAPIKey);
-      Api.enableSentiment();
-      const coinNews = await Api.getTopNews();
+      const coinURL = 'https://cryptocontrol.io/api/v1/public/news' + '?key=' + cryptoAPIKey;
+      const coinReq = await fetch(coinURL);
+      if (!coinReq.ok) {
+        throw Error(coinReq.statusText);
+      }
+      const coinNews = await coinReq.json();
       const coinNewsResponse = coinNews.map(article => (
           {
             id: `${window.btoa(Math.random())}`,
