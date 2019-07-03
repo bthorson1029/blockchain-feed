@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, useState, useEffect } from 'react';
 // import logo from '../logo.svg';
 import Resource from './Resource';
 import CoinDetails from './CoinDetails';
@@ -23,95 +23,87 @@ class CardRow extends Component {
     }
   }
 
+  // fetchData = () => {
+  //   const newsAPIKey = '6fb75bd662324da8ac93021ec495081e';
+  //   const baseURL = 'https://newsapi.org/v2/' + this.state.endpoint + '?';
+  //   const Query = this.state.query;
+  //   const articleCount = 24;
+  //   // const Category = this.state.category;
+  //   const searchQuery = 'q=' + Query + '&';
+  //   const mainLanguage = "language=en&";
+  //   const url = baseURL +
+  //               searchQuery +
+  //               'pageSize=' +
+  //               articleCount +
+  //               '&' + // Number of results
+  //               'sortBy=popularity&' +
+  //               mainLanguage +
+  //               'apiKey=' +
+  //               newsAPIKey;
 
-  fetchData = () => {
-    const newsAPIKey = '6fb75bd662324da8ac93021ec495081e';
-    const baseURL = 'https://newsapi.org/v2/' + this.state.endpoint + '?';
-    const Query = this.state.query;
-    const articleCount = 24;
-    // const Category = this.state.category;
-    const searchQuery = 'q=' + Query + '&';
-    const mainLanguage = "language=en&";
-    const url = baseURL +
-                searchQuery +
-                'pageSize=' +
-                articleCount +
-                '&' + // Number of results
-                'sortBy=popularity&' +
-                mainLanguage +
-                'apiKey=' +
-                newsAPIKey;
+  //   const req = new Request(url);
+  //   fetch(req)
+  //     .then(res => res.json())
+  //     .then(data => data.articles.map(article => (
+  //       {
+  //         id: `${window.btoa(Math.random())}`,
+  //         title: `${article.title}`,
+  //         author: `${article.author}`,
+  //         source: `${article.source.name}`,
+  //         description: `${article.description}`,
+  //         date: `${article.publishedAt}`,
+  //         imageUrl: `${article.urlToImage}`,
+  //         url: `${article.url}`
+  //       }
+  //     )))
+  //     .then(resources => this.setState({ resources, isLoading: true }))
+  //     .catch(error => console.log('parsing failed', error))
 
-    const req = new Request(url);
-    fetch(req)
-      .then(res => res.json())
-      .then(data => data.articles.map(article => (
-        {
-          id: `${window.btoa(Math.random())}`,
-          title: `${article.title}`,
-          author: `${article.author}`,
-          source: `${article.source.name}`,
-          description: `${article.description}`,
-          date: `${article.publishedAt}`,
-          imageUrl: `${article.urlToImage}`,
-          url: `${article.url}`
-        }
-      )))
-      .then(resources => this.setState({ resources, isLoading: true }))
-      .catch(error => console.log('parsing failed', error))
+  //   const cryptoAPIKey = '172fe1fe3990c938aa46e5a814a853ea';
+  //   const Api = new CryptoNewsApi(cryptoAPIKey);
 
-    const cryptoAPIKey = '172fe1fe3990c938aa46e5a814a853ea';
-    const Api = new CryptoNewsApi(cryptoAPIKey);
+  //     Api.enableSentiment()
 
-      Api.enableSentiment()
-
-      Api.getTopNews()
-        .then(articles => articles.map(article => (
-          {
-            id: `${window.btoa(Math.random())}`,
-            title: `${article.title}`,
-            author: `${article.author}`,
-            source: `${article.source.name}`,
-            description: `${article.description}`,
-            date: `${article.publishedAt}`,
-            imageUrl: `${article.originalImageUrl}`,
-            url: `${article.url}`
-          }
-        )))
-        .catch(error => console.error(error))
-        .then(cryptoResources => this.setState({ resources: [...this.state.resources.concat(cryptoResources)], isLoading: false }))
-        }
-   
-
-  componentDidMount() {
-    this.fetchData();
-  }
-
-  
+  //     Api.getTopNews()
+  //       .then(articles => articles.map(article => (
+  //         {
+  //           id: `${window.btoa(Math.random())}`,
+  //           title: `${article.title}`,
+  //           author: `${article.author}`,
+  //           source: `${article.source.name}`,
+  //           description: `${article.description}`,
+  //           date: `${article.publishedAt}`,
+  //           imageUrl: `${article.originalImageUrl}`,
+  //           url: `${article.url}`
+  //         }
+  //       )))
+  //       .catch(error => console.error(error))
+  //       .then(cryptoResources => this.setState({ resources: [...this.state.resources.concat(cryptoResources)], isLoading: false }))
+  //       }
 
 
-  componentWillMount() {
-    this.fetchData();
-  }
-  
+  // componentDidMount() {
+  //   this.fetchData();
+  // }
+
   // componentDidUpdate() {
-    
+
   // }
 
 
-  shuffle = (array) => {
-    let m = array.length, t, i;
-    // While there remain elements to shuffle…
-    while (m) {
-      // Pick a remaining element…
-      i = Math.floor(Math.random() * m--);
-      // And swap it with the current element.
-      t = array[m];
-      array[m] = array[i];
-      array[i] = t;
-    }
-    return array;
-  }
+  // shuffle = (array) => {
+  //   let m = array.length, t, i;
+  //   // While there remain elements to shuffle…
+  //   while (m) {
+  //     // Pick a remaining element…
+  //     i = Math.floor(Math.random() * m--);
+  //     // And swap it with the current element.
+  //     t = array[m];
+  //     array[m] = array[i];
+  //     array[i] = t;
+  //   }
+  //   return array;
+  // }
 
   // handleInputChange = () => {
   //   this.setState({
@@ -126,8 +118,77 @@ class CardRow extends Component {
   //   })
   // }
 
+  async componentDidMount() {
+    try {
+      const newsAPIKey = '6fb75bd662324da8ac93021ec495081e';
+      const baseURL = 'https://newsapi.org/v2/' + this.state.endpoint + '?';
+      const Query = this.state.query;
+      const articleCount = 24;
+      // const Category = this.state.category;
+      const searchQuery = 'q=' + Query + '&';
+      const mainLanguage = "language=en&";
+      const url = baseURL +
+                  searchQuery +
+                  'pageSize=' +
+                  articleCount +
+                  '&' + // Number of results
+                  'sortBy=popularity&' +
+                  mainLanguage +
+                  'apiKey=' +
+                  newsAPIKey;
+      const req = new Request(url);
+      const newsAPIResponse = await fetch(req); 
+      const newsJson = await newsAPIResponse.json();
+      const data = newsJson.articles.map(article => (
+        {
+          id: `${window.btoa(Math.random())}`,
+          title: `${article.title}`,
+          author: `${article.author}`,
+          source: `${article.source.name}`,
+          description: `${article.description}`,
+          date: `${article.publishedAt}`,
+          imageUrl: `${article.urlToImage}`,
+          url: `${article.url}`
+        }
+      ));
+      this.setState({ 
+        resources: data, 
+        isLoading: true
+      });
+    } catch(error) {
+      console.log("error in news fetch");
+      console.log(error);
+    }
+
+    try {
+      const cryptoAPIKey = '172fe1fe3990c938aa46e5a814a853ea';
+      const Api = await new CryptoNewsApi(cryptoAPIKey);
+      Api.enableSentiment();
+      const coinNews = await Api.getTopNews();
+      const coinNewsResponse = coinNews.map(article => (
+          {
+            id: `${window.btoa(Math.random())}`,
+            title: `${article.title}`,
+            author: `${article.author}`,
+            source: `${article.source.name}`,
+            description: `${article.description}`,
+            date: `${article.publishedAt}`,
+            imageUrl: `${article.originalImageUrl}`,
+            url: `${article.url}`
+          }
+        ));
+      this.setState({ 
+        resources: [...this.state.resources.concat(coinNewsResponse)], 
+        isLoading: false 
+      })
+    } catch(error) {
+      console.log("Error in coin news fetch");
+      console.log(error);
+    }
+  }
+
   render() {
-    const { isLoading, resources, coins } = this.state;
+    const { isLoading, resources } = this.state;
     return (
       <div className="container-fluid articleContainer">
         {/* <div className="row">
@@ -145,51 +206,30 @@ class CardRow extends Component {
         <div className="row">
           <nav className="col-md-2 d-none d-md-block bg-dark sidebar">
             <div className="sidebar sticky">
-            {
-              !isLoading && coins.length > 0 ? coins.map(coin => {
-                const { title, description, date, imageUrl, url, id, source, author } = coin;
-                return (
-                  <div className="col-lg-12 mb-4">
-                    <Resource
-                      id={id}
-                      title={title}
-                      author={author}
-                      source={source}
-                      description={description}
-                      date={date}
-                      imageUrl={imageUrl}
-                      resourceUrl={url}
-                      key={id}
-                    />
-                  </div>
-                )
-              }) :  <Loader /> 
-              }
             </div>
           </nav>
           <div className="col-lg-10 articleArea">
             <div className="row pt-4">
-            {
-              !isLoading && resources.length > 0 ? resources.map(resource => {
-                const { title, description, date, imageUrl, url, id, source, author } = resource;
-                return (
-                  <div className="col-lg-3 mb-4">
-                    <Resource
-                      id={id}
-                      title={title}
-                      author={author}
-                      source={source}
-                      description={description}
-                      date={date}
-                      imageUrl={imageUrl}
-                      resourceUrl={url}
-                      key={id}
-                    />
-                  </div>
-                )
-              }) :  <Loader /> 
+              {
+                !isLoading && resources.length > 0 ? resources.map(resource => {
+                  const { title, description, date, imageUrl, url, id, source, author } = resource;
+                  return (
+                    <div className="col-lg-3 mb-4" key={id}>
+                      <Resource
+                        id={id}
+                        title={title}
+                        author={author}
+                        source={source}
+                        description={description}
+                        date={date}
+                        imageUrl={imageUrl}
+                        resourceUrl={url}
+                      />
+                    </div>
+                  )
+                }) : <Loader />
               }
-              </div>
+            </div>
           </div>
         </div>
       </div>

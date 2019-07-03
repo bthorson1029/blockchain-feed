@@ -16,7 +16,7 @@ class Resource extends Component {
     const {resourceUrl, title, imageUrl, source, description, id } = this.props;
     return (
       <div className="cardContainer">
-        {this.state.loaded ? 
+        {this.state.loaded == false ? 
           <ArticleCard publishedDate={publishedDate} 
                        title={title} 
                        source={source} 

@@ -15,10 +15,12 @@ class Header extends Component {
             <h2 className="headerTitle">Vesto</h2>
             <div className="text-right">
               <h5 className="mb-0">{time.toDateString()}</h5>
-              <h2><Clock
+              <h2>
+                <Clock
                 style={{ fontSize: '1.5em', fontWeight: '300' }}
                 format={'h:mm a'}
-                ticking={true} /></h2>
+                ticking={true} />
+              </h2>
             </div>
           </div>
         </div >
