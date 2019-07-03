@@ -19,7 +19,9 @@ class CardRow extends Component {
       isLoading: true,
       query: 'cryptocurrency',
       resources: [],
-      coins: []
+      coins: [],
+      price: null,
+      lastPrice: null,
     }
   }
 
@@ -52,6 +54,35 @@ class CardRow extends Component {
   // }
 
   async componentDidMount() {
+ 
+    try {
+      const cryptoCompareKey = '416becedd549a2a36a04e374118496c536b7c12a320c33d55e04bcd02553b4cc';
+      const cryptoCompareUrl = 'https://min-api.cryptocompare.com/data/top/mktcapfull?limit=10&tsym=USD' + '&api_key=' + cryptoCompareKey;
+      const cryptoCompareRequest = await fetch(cryptoCompareUrl);
+      if (!cryptoCompareRequest.ok) {
+        throw Error(cryptoCompareRequest.statusText);
+      }
+      const cryptoCompareResponse = await cryptoCompareRequest.json();
+      const responseObj = cryptoCompareResponse.Data;
+      console.log(responseObj);
+      const cryptoCompareMap = responseObj.map(coin => (
+          {
+            name: `${coin.CoinInfo.Name}`,
+            fullname: `${coin.CoinInfo.FullName}`,
+            price: `${coin.RAW.USD.PRICE.toFixed(3)}`
+          }
+        ));
+        console.log(responseObj[0].CoinInfo.Name)
+      this.setState({
+        coins: cryptoCompareMap,
+        isLoading: false
+      });
+    } 
+    catch(error) {
+      console.log(error);
+      console.log("error in compare");
+    }
+
     try {
       const newsAPIKey = '6fb75bd662324da8ac93021ec495081e';
       const baseURL = 'https://newsapi.org/v2/' + this.state.endpoint + '?';
@@ -125,30 +156,6 @@ class CardRow extends Component {
       console.log("Error in coin news fetch");
       console.log(error);
     }
-
-    try {
-      const cryptoCompareKey = '416becedd549a2a36a04e374118496c536b7c12a320c33d55e04bcd02553b4cc';
-      const cryptoCompareUrl = 'https://min-api.cryptocompare.com/data/pricemulti?fsyms=BTC,ETH,XRP,LTC,BCH&tsyms=USD' + '&api_key=' + cryptoCompareKey;
-      const cryptoCompareRequest = await fetch(cryptoCompareUrl);
-      if (!cryptoCompareRequest.ok) {
-        throw Error(cryptoCompareRequest.statusText);
-      }
-      const cryptoCompareResponse = await cryptoCompareRequest.json();
-      const cryptoCompareMap = Object.keys(cryptoCompareResponse).map(coin => (
-          {
-            name: `${coin}`,
-            price: `${cryptoCompareResponse[coin].USD}`
-          }
-        ));
-      this.setState({
-        coins: cryptoCompareMap,
-        isLoading: false
-      });
-    } 
-    catch(error) {
-      console.log(error);
-      console.log("error in compare");
-    }
   }
 
 
@@ -173,12 +180,13 @@ class CardRow extends Component {
             <div className="coinList">
               {
                 coins.length > 0 ? coins.map(coin => {
-                  const { name, price, id } = coin;
+                  const { name, price, id, fullname } = coin;
                   return (
                     <div className="row coinRow" key={id}>
                       <Coins
                         key={id}
                         name={name}
+                        fullname={fullname}
                         price={price}
                        />
                     </div>

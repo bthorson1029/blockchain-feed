@@ -154,10 +154,13 @@ a, a:hover {
 }
 .coinPrice {
   padding: 0.75rem 0.75rem 0.75rem 1rem;
-  color: #7cea9c;
+  color: #ffffff;
   transition: ease-in-out;
   transition-duration: 100ms;
-  letter-spacing: 1.5px;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: row;
+  align-items: center;
 }
 .coinPrice.card {
   background-color: #2a3f4b !important;
@@ -165,10 +168,19 @@ a, a:hover {
   height: 100%;
 }
 .coinPrice h3 {
-  font-size: 1.75rem;
+  font-size: 1.25rem;
   font-weight: 300;
   letter-spacing: 1px;
   color: #ffffff;
+}
+.coinPrice p {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  overflow: hidden;
+  white-space: nowrap;
+  max-width: 132px;
+  width: 100%;
+  text-overflow: ellipsis;
 }
 .sidebar {
   background-color: #152c3a !important;
@@ -178,14 +190,13 @@ a, a:hover {
   overflow-x: hidden;
 }
 .coinRow {
-  height: 80px;
-  margin: 2rem 0 0 0;
+  height: 64px;
+  margin: 1rem 0 0 0;
 }
 .coinList {
   display: flex;
   flex-direction: column;
   width: 100%;
-  height: calc(100% - 350px);
 }
 .adSpace {
   height: 200px;
@@ -194,6 +205,11 @@ a, a:hover {
 }
 .coinPrice:hover {
   padding-left: 1.5rem;
+  padding-right: 1.5rem;
+  color: #29e7cd;
+}
+.coinPrice:hover h3 {
+  color: #29e7cd;
 }
 .coinPrice:hover::before {
   position: absolute;
@@ -201,8 +217,10 @@ a, a:hover {
   top: 0;
   bottom: 0;
   content: '';
-  background-color: #379adc;
+  background-color: #29e7cd;
   width: 8px;
+  border-top-left-radius: .25rem;
+  border-bottom-left-radius: .25rem;
 }
 
 
