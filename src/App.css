@@ -19,7 +19,8 @@ a, a:hover {
 .header .row .intro {
   display: flex;
   justify-content: space-between;
-  background-color: white;
+  background-color: #2a3f4b;
+  color: white;
   padding: 1rem 4rem;
 }
 .header h2.headerTitle {
@@ -148,6 +149,50 @@ a, a:hover {
   height: 36px;
 
 }
+.coinPrice {
+  padding: 0.75rem 0.75rem 0.75rem 1rem;
+  color: #ffffff;
+  transition: ease-in-out;
+  transition-duration: 100ms;
+}
+.coinPrice.card {
+  background-color: #2a3f4b !important;
+  border: none;
+  height: 100%;
+}
+.coinPrice h3 {
+  font-size: 1.5rem;
+  color: #7cea9c;
+}
+.sidebar {
+  background-color: #152c3a !important;
+  height: 100vh;
+  max-height: 100vh;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+.coinRow {
+  height: 80px;
+  margin: 2rem 0 0 0;
+}
+.coinList {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+.coinPrice:hover {
+  padding-left: 1.5rem;
+}
+.coinPrice:hover::before {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  content: '';
+  background-color: #379adc;
+  width: 8px;
+}
+
 
 /* Loader */
 

@@ -24,19 +24,19 @@ class CardRow extends Component {
   }
 
 
-  // shuffle = (array) => {
-  //   let m = array.length, t, i;
-  //   // While there remain elements to shuffle…
-  //   while (m) {
-  //     // Pick a remaining element…
-  //     i = Math.floor(Math.random() * m--);
-  //     // And swap it with the current element.
-  //     t = array[m];
-  //     array[m] = array[i];
-  //     array[i] = t;
-  //   }
-  //   return array;
-  // }
+  shuffle = (array) => {
+    let m = array.length, t, i;
+    // While there remain elements to shuffle…
+    while (m) {
+      // Pick a remaining element…
+      i = Math.floor(Math.random() * m--);
+      // And swap it with the current element.
+      t = array[m];
+      array[m] = array[i];
+      array[i] = t;
+    }
+    return array;
+  }
 
   // handleInputChange = () => {
   //   this.setState({
@@ -134,8 +134,6 @@ class CardRow extends Component {
         throw Error(cryptoCompareRequest.statusText);
       }
       const cryptoCompareResponse = await cryptoCompareRequest.json();
-      console.log(cryptoCompareResponse, "First Error");
-
       const cryptoCompareMap = Object.keys(cryptoCompareResponse).map(coin => (
           {
             name: `${coin}`,
@@ -146,14 +144,13 @@ class CardRow extends Component {
         coins: cryptoCompareMap,
         isLoading: false
       });
-      console.log(cryptoCompareMap);
-      console.log(cryptoCompareResponse.BTC.USD);
     } 
     catch(error) {
       console.log(error);
       console.log("error in compare");
     }
   }
+
 
   render() {
     const { isLoading, resources, coins } = this.state;
@@ -172,14 +169,15 @@ class CardRow extends Component {
             </div>
         </div> */}
         <div className="row">
-          <nav className="col-md-2 d-none d-md-block bg-dark sidebar">
-            <div className="sidebar sticky">
+          <nav className="col-md-2 d-none d-flex sidebar">
+            <div className="coinList">
               {
                 coins.length > 0 ? coins.map(coin => {
                   const { name, price, id } = coin;
                   return (
-                    <div className="col" key={id}>
+                    <div className="row coinRow" key={id}>
                       <Coins
+                        key={id}
                         name={name}
                         price={price}
                        />
@@ -195,7 +193,7 @@ class CardRow extends Component {
                 !isLoading && resources.length > 0 ? resources.map(resource => {
                   const { title, description, date, imageUrl, url, id, source, author } = resource;
                   return (
-                    <div className="col-lg-3 mb-4" key={id}>
+                    <div className="col-xl-3 col-lg-3 col-md-4 mb-4" key={id}>
                       <Resource
                         id={id}
                         title={title}
@@ -209,7 +207,7 @@ class CardRow extends Component {
                     </div>
                   )
                 }) : <Loader />
-              }
+              } {console.log(this.shuffle(resources))}
             </div>
           </div>
         </div>

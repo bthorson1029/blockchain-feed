@@ -8,11 +8,13 @@ export default class Coins extends Component {
       }
 
       render() {
-          const { name, price } = this.props;
+          const { name, price, id } = this.props;
           return (
-              <div>
-                  <h3>{name}</h3>
-                  <p>{price}</p>
+              <div className="col" key={id}>
+                <div className="card coinPrice">
+                    <p className="pb-0 mb-0">{name}</p>
+                    <h3>${price}</h3>
+                  </div>
               </div>
           )
       }
