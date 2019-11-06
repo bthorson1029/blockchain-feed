@@ -5,15 +5,10 @@ import React, { Component } from 'react';
 export default class Coins extends Component {
     constructor(props) {
         super(props);
-        this.state = {
-            price: props.price,
-            lastPrice: props.lastPrice,
-        }
       }
 
       render() {
-        const { name, id, fullname } = this.props;
-        const { price, lastPrice } = this.state;
+        const { name, id, fullname, price, lastPrice } = this.props;
         const gainloss = lastPrice > price ? 'loss' : 'gain';
         return (
               <div className="col" key={id}>

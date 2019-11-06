@@ -20,8 +20,8 @@ class CardRow extends Component {
       query: 'cryptocurrency',
       resources: [],
       coins: [],
-      price: null,
-      lastPrice: null
+      price: [],
+      lastPrice: []
     }
     this.coinDetails = this.coinDetails.bind(this);
     this.coinNews = this.coinNews.bind(this);
@@ -45,22 +45,34 @@ class CardRow extends Component {
       }
       const cryptoCompareResponse = await cryptoCompareRequest.json();
       const responseObj = cryptoCompareResponse.Data;
-      console.log(responseObj);
+      // console.log(responseObj);
       const cryptoCompareMap = responseObj.map(response => (
         {
           name: `${response.CoinInfo.Name}`,
           fullname: `${response.CoinInfo.FullName}`,
           price: `${response.RAW.USD.PRICE.toFixed(3)}`,
+          lastPrice: `${response.price}`
         }
       ));
-
-      const priceMap = cryptoCompareMap.map(currentPrice => { return currentPrice.price; });
+      // console.log(cryptoCompareMap);
+      const priceMap = cryptoCompareMap.map(currentPrice =>  parseFloat(currentPrice.price));
+      // console.log(priceMap);
       
       this.setState((prevState) => ({
         price: priceMap,
-        lastPrice:  prevState.price !== priceMap ? prevState.price : prevState.lastPrice,
+        lastPrice:  prevState.price !== priceMap ? prevState.price : prevState.lastPrice.map(price => {return price}),
         coins: cryptoCompareMap
       }))
+      const lastPriceMap = this.state.lastPrice.map(prevPrice => {
+        return prevPrice;
+      });
+      cryptoCompareMap.forEach((coin, index) => {
+        coin.lastPrice = lastPriceMap[index];
+       
+      })
+      this.setState({
+        coins: cryptoCompareMap
+      })
     }
     catch (error) {
       console.log(error);
@@ -152,18 +164,6 @@ class CardRow extends Component {
     const { resources, coins } = this.state;
     return (
       <div className="container-fluid articleContainer">
-        {/* <div className="row">
-            <div className="col-lg-12 mb-4">
-            <form className="form-group" onSubmit={(e) => e.preventDefault()}>
-                <input
-                  placeholder="Search keyword..."
-                  ref={input => this.search = input}
-                  onChange={this.handleInputChange}
-                  className="form-control"
-                />
-              </form>
-            </div>
-        </div> */}
         <div className="row">
           <nav className="col-md-2 d-none d-flex sidebar">
             <div className="coinList">
