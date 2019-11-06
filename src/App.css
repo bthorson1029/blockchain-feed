@@ -50,6 +50,13 @@ a, a:hover {
 .card-body {
   overflow: hidden;
 }
+.card.coinPrice.gain {
+  border: 1px solid #00b518;
+}
+
+.card.coinPrice.loss {
+  border: 1px solid #e60000;
+}
 .projectType {
   text-transform: uppercase;
   font-size: 0.8rem;
@@ -197,6 +204,23 @@ a, a:hover {
   display: flex;
   flex-direction: column;
   width: 100%;
+  height: 100%;
+  overflow: hidden;
+  overflow-y: scroll;
+}
+.coinList::-webkit-scrollbar, .coinList::-moz-scrollbar  {
+  background-color:  #152c3a;
+  width: 8px;
+}
+.coinList::-webkit-scrollbar-thumb, .coinList::-moz-scrollbar-thumb {
+  background-color: #2a3f4b;
+  border-radius: 10px;
+}
+.coinList::-webkit-scrollbar-track, .coinList::-moz-scrollbar-track {
+  -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+  background-color: #F5F5F5;
+  border-radius: 10px;
+  margin-top: 1rem;
 }
 .adSpace {
   height: 200px;

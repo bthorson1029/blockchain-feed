@@ -7,7 +7,7 @@ class Resource extends Component {
   constructor(props) {
     super(props);
     this.state = { 
-      loaded: false
+      isLoading: false
      };
   }
 
@@ -16,7 +16,7 @@ class Resource extends Component {
     const {resourceUrl, title, imageUrl, source, description, id } = this.props;
     return (
       <div className="cardContainer">
-        {this.state.loaded == false ? 
+        {this.state.isLoading == false ? 
           <ArticleCard publishedDate={publishedDate} 
                        title={title} 
                        source={source} 
@@ -25,7 +25,7 @@ class Resource extends Component {
                        description={description}
                        key={id} 
             /> :
-          <div className="card" onLoad={() => this.setState({ loaded: true })}>
+          <div className="card" onLoad={() => this.setState({ isLoading: true })}>
             <a href={resourceUrl} target="_blank" rel="noopener noreferrer">
               <div className="card-img-top loading">
                 <img
