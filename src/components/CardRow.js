@@ -33,7 +33,7 @@ class CardRow extends Component {
     this.coinNews();
     this.cryptoNews();
     this.coinDetails();
-    setInterval(this.coinDetails, 30000);
+    setInterval(this.coinDetails, 10000);
   }
 
   async coinDetails() {
