@@ -169,7 +169,7 @@ a, a:hover {
   background-color: #2a3f4b !important;
   border: none;
   height: 54px;
-  transition: all 0.05s ease-in;
+  transition: all 0.10s ease-in;
 }
 .coinPrice h3 {
   font-size: 1.25rem;
