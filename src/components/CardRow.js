@@ -33,7 +33,7 @@ class CardRow extends Component {
     this.coinNews();
     this.cryptoNews();
     this.coinDetails();
-    setInterval(this.coinDetails, 6000);
+    setInterval(this.coinDetails, 2000);
   }
 
   async coinDetails() {
@@ -49,6 +49,7 @@ class CardRow extends Component {
       const cryptoCompareMap = responseObj.map(response => (
         {
           name: `${response.CoinInfo.Name}`,
+          logo: `${'https://www.cryptocompare.com' + response.CoinInfo.ImageUrl}`,
           fullname: `${response.CoinInfo.FullName}`,
           price: `${response.RAW.USD.PRICE.toFixed(3)}`,
           lastPrice: `${response.price}`
@@ -82,7 +83,7 @@ class CardRow extends Component {
       const newsAPIKey = '6fb75bd662324da8ac93021ec495081e';
       const baseURL = 'https://newsapi.org/v2/' + this.state.endpoint + '?';
       const Query = this.state.query;
-      const articleCount = 24;
+      const articleCount = 48;
       // const Category = this.state.category;
       const searchQuery = 'q=' + Query + '&';
       const mainLanguage = "language=en&";
@@ -172,12 +173,13 @@ class CardRow extends Component {
                 <div className="row">
                     {
                       coins.map(coin => {
-                      const { name, price, id, fullname, lastPrice } = coin;
+                      const { name, price, id, fullname, lastPrice, logo } = coin;
                       return (
-                        <div className="col-lg-12 mb-2" key={id}>
+                        <div className="col-lg-12 mb-3" key={id}>
                           <Coins
                             key={id}
                             name={name}
+                            logo={logo}
                             fullname={fullname}
                             price={price}
                             lastPrice={lastPrice}

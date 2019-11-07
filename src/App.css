@@ -169,6 +169,7 @@ a, a:hover {
   background-color: #2a3f4b !important;
   border: none;
   height: 54px;
+  transition: all 0.05s ease-in;
 }
 .coinPrice h3 {
   font-size: 1.25rem;
@@ -187,9 +188,17 @@ a, a:hover {
 }
 .coinInfo {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   text-align: left;
-
+  align-items: center;
+}
+.logoImage {
+  display: flex;
+  object-fit: contain;
+  width: 2rem;
+  height: 2rem;
+  margin-right: 0.5rem;
+  border-radius: 50%;
 }
 .sidebar {
   background-color: #152c3a !important;
@@ -234,15 +243,11 @@ a, a:hover {
   border: 1px solid red;
 }
 
-.coinPrice.gain:hover, 
-.coinPrice.gain:hover h3,
-.card.coinPrice .text-right .percentage.gain {
-  color: #59a96a;
+.card.coinPrice.gain .text-right {
+  color: #8aea92;
 }
-.coinPrice.loss:hover, 
-.coinPrice.loss:hover h3,
-.card.coinPrice .text-right .percentage.loss {
-  color: #fe5f55;
+.card.coinPrice.loss .text-right {
+  color: #ef6f6c;
 }
 
 .coinPrice::before {
@@ -256,12 +261,20 @@ a, a:hover {
   border-top-left-radius: .25rem;
   border-bottom-left-radius: .25rem;
 }
-
+.coinPrice.card:hover {
+  box-shadow: 0 0 0 1px #e8e8e8;
+}
+.coinPrice.card.gain:hover {
+  box-shadow: 0 0 0 1px #8aea92;
+}
+.coinPrice.card.loss:hover {
+  box-shadow: 0 0 0 1px #ef6f6c;
+}
 .coinPrice.gain::before {
-  background-color: #59a96a;
+  background-color: #8aea92;
 }
 .coinPrice.loss::before {
-  background-color: #fe5f55;
+  background-color: #ef6f6c;
 }
 
 

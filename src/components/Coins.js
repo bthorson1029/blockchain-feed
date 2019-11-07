@@ -29,18 +29,21 @@ export default class Coins extends Component {
       }
 
       render() {
-        const { name, id, fullname, price, lastPrice } = this.props;
+        const { name, id, fullname, price, lastPrice, logo } = this.props;
         const gainloss = this.gainLoss(lastPrice, price);
         return (
-              <div key={id}>
+              <div className="mx-3" key={id}>
                 <div className={`card coinPrice ${gainloss}`}>
                     <div className="coinInfo">
-                        <h5 className="pb-0 mb-0">
-                            {name}
-                        </h5>
-                        <p className="pb-0 mb-0">
-                            {fullname}
-                        </p>
+                        <img src={logo} className="logoImage"/>
+                        <div className="d-block">
+                            <h5 className="pb-0 mb-0">
+                                {name}
+                            </h5>
+                            <p className="pb-0 mb-0">
+                                {fullname}
+                            </p>
+                        </div>
                     </div>
                     <div className="d-flex flex-column justify-content-end text-right">
                         <h3 className={`pb-0 mb-0 price`}>
