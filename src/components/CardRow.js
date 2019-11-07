@@ -33,7 +33,7 @@ class CardRow extends Component {
     this.coinNews();
     this.cryptoNews();
     this.coinDetails();
-    setInterval(this.coinDetails, 2000);
+    setInterval(this.coinDetails, 30000);
   }
 
   async coinDetails() {
@@ -175,7 +175,7 @@ class CardRow extends Component {
                       coins.map(coin => {
                       const { name, price, id, fullname, lastPrice, logo } = coin;
                       return (
-                        <div className="col-lg-12 mb-3" key={id}>
+                        <div className="col-lg-12 mb-2" key={id}>
                           <Coins
                             key={id}
                             name={name}
