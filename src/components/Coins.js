@@ -20,9 +20,9 @@ export default class Coins extends Component {
         const { name, id, fullname, price, lastPrice } = this.props;
         const gainloss = lastPrice > price ? 'loss' : 'gain';
         return (
-              <div className="col" key={id}>
+              <div key={id}>
                 <div className={`card coinPrice ${gainloss}`}>
-                    <div>
+                    <div className="coinInfo">
                         <h5 className="pb-0 mb-0">
                             {name}
                         </h5>
@@ -30,7 +30,7 @@ export default class Coins extends Component {
                             {fullname}
                         </p>
                     </div>
-                    <div className="text-right">
+                    <div className="d-flex flex-column justify-content-end text-right">
                         <h3 className={`pb-0 mb-0 price`}>
                             ${price}
                         </h3>

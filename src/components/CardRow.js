@@ -39,7 +39,7 @@ class CardRow extends Component {
   async coinDetails() {
     try {
       const cryptoCompareKey = '416becedd549a2a36a04e374118496c536b7c12a320c33d55e04bcd02553b4cc';
-      const cryptoCompareUrl = 'https://min-api.cryptocompare.com/data/top/mktcapfull?limit=10&tsym=USD' + '&api_key=' + cryptoCompareKey;
+      const cryptoCompareUrl = 'https://min-api.cryptocompare.com/data/top/mktcapfull?limit=12&tsym=USD' + '&api_key=' + cryptoCompareKey;
       const cryptoCompareRequest = await fetch(cryptoCompareUrl);
       if (!cryptoCompareRequest.ok) {
         throw Error(cryptoCompareRequest.statusText);
@@ -164,23 +164,30 @@ class CardRow extends Component {
         <div className="row">
           <nav className="col-md-2 d-none d-flex sidebar">
             <div className="coinList">
-              {
-                coins.map(coin => {
-                const { name, price, id, fullname, lastPrice } = coin;
-                return (
-                  <div className="row coinRow" key={id}>
-                    <Coins
-                      key={id}
-                      name={name}
-                      fullname={fullname}
-                      price={price}
-                      lastPrice={lastPrice}
-                    />
-                  </div>
-                )
-              }
-            )
-          }
+              <div className="row">
+                <h5 className="col coinsTitle text-center mt-3 mb-4">
+                  Top 10 Cryptocurrenies by Market Cap
+                </h5>
+              </div>
+                <div className="row">
+                    {
+                      coins.map(coin => {
+                      const { name, price, id, fullname, lastPrice } = coin;
+                      return (
+                        <div className="col-lg-12 mb-3" key={id}>
+                          <Coins
+                            key={id}
+                            name={name}
+                            fullname={fullname}
+                            price={price}
+                            lastPrice={lastPrice}
+                          />
+                        </div>
+                      )
+                    }
+                  )
+                }
+            </div>
             </div>
             <div className="card adSpace">
               <div className="card-header">
@@ -192,13 +199,18 @@ class CardRow extends Component {
             </div>
           </nav>
           <div className="col-md-10 articleArea">
+          <div className="row pb-0">
+                <h5 className="col text-left  mb-1">
+                  Top Articles for Cryptocurrency by Popularity
+                </h5>
+              </div>
             <div className="row pt-4">
               {
                 resources.length > 0
                   ? resources.map(resource => {
                     const { title, description, date, imageUrl, url, id, source, author } = resource;
                     return (
-                      <div className="col-xl-3 col-md-6 col-sm-12 mb-4" key={id}>
+                      <div className="col-xl-3 col-lg-4 col-md-6 col-sm-12 mb-4" key={id}>
                         <Resource
                           id={id}
                           title={title}
