@@ -4,6 +4,7 @@ import React, { Component } from 'react';
 import Resource from './Resource';
 import Loader from './Loader';
 import Coins from './Coins';
+import _ from 'lodash';
 
 
 
@@ -32,7 +33,7 @@ class CardRow extends Component {
     this.coinNews();
     this.cryptoNews();
     this.coinDetails();
-    setInterval(this.coinDetails, 30000);
+    setInterval(this.coinDetails, 6000);
   }
 
   async coinDetails() {
@@ -56,19 +57,18 @@ class CardRow extends Component {
       ));
       // console.log(cryptoCompareMap);
       const priceMap = cryptoCompareMap.map(currentPrice =>  parseFloat(currentPrice.price));
-      // console.log(priceMap);
-      
+   
       this.setState((prevState) => ({
         price: priceMap,
-        lastPrice:  prevState.price !== priceMap ? prevState.price : prevState.lastPrice.map(price => {return price}),
+        lastPrice: _.sum(prevState.price) !== _.sum(priceMap) ? prevState.price : prevState.lastPrice,
         coins: cryptoCompareMap
       }))
+      console.log(this.state);
       const lastPriceMap = this.state.lastPrice.map(prevPrice => {
         return prevPrice;
       });
       cryptoCompareMap.forEach((coin, index) => {
         coin.lastPrice = lastPriceMap[index];
-       
       })
       this.setState({
         coins: cryptoCompareMap
