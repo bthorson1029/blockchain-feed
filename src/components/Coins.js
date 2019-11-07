@@ -16,9 +16,21 @@ export default class Coins extends Component {
           : percent).toFixed(3)
       }
 
+      gainLoss(lastPrice, price) {
+        if(lastPrice > price) {
+            return 'loss'
+        } 
+        if (lastPrice < price) {
+            return 'gain'
+        }
+        else {
+            return 'neutral'
+        }
+      }
+
       render() {
         const { name, id, fullname, price, lastPrice } = this.props;
-        const gainloss = lastPrice > price ? 'loss' : 'gain';
+        const gainloss = this.gainLoss(lastPrice, price);
         return (
               <div key={id}>
                 <div className={`card coinPrice ${gainloss}`}>

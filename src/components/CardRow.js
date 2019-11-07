@@ -165,16 +165,16 @@ class CardRow extends Component {
           <nav className="col-md-2 d-none d-flex sidebar">
             <div className="coinList">
               <div className="row">
-                <h5 className="col coinsTitle text-center mt-3 mb-4">
+                <p className="col coinsTitle text-center my-3">
                   Top 10 Cryptocurrenies by Market Cap
-                </h5>
+                </p>
               </div>
                 <div className="row">
                     {
                       coins.map(coin => {
                       const { name, price, id, fullname, lastPrice } = coin;
                       return (
-                        <div className="col-lg-12 mb-3" key={id}>
+                        <div className="col-lg-12 mb-2" key={id}>
                           <Coins
                             key={id}
                             name={name}
