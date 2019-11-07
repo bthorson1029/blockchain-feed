@@ -46,7 +46,6 @@ class CardRow extends Component {
       }
       const cryptoCompareResponse = await cryptoCompareRequest.json();
       const responseObj = cryptoCompareResponse.Data;
-      // console.log(responseObj);
       const cryptoCompareMap = responseObj.map(response => (
         {
           name: `${response.CoinInfo.Name}`,
@@ -55,7 +54,6 @@ class CardRow extends Component {
           lastPrice: `${response.price}`
         }
       ));
-      // console.log(cryptoCompareMap);
       const priceMap = cryptoCompareMap.map(currentPrice =>  parseFloat(currentPrice.price));
    
       this.setState((prevState) => ({
@@ -63,7 +61,6 @@ class CardRow extends Component {
         lastPrice: _.sum(prevState.price) !== _.sum(priceMap) ? prevState.price : prevState.lastPrice,
         coins: cryptoCompareMap
       }))
-      console.log(this.state);
       const lastPriceMap = this.state.lastPrice.map(prevPrice => {
         return prevPrice;
       });

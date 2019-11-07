@@ -50,13 +50,8 @@ a, a:hover {
 .card-body {
   overflow: hidden;
 }
-.card.coinPrice.gain {
-  border: 1px solid #00b518;
-}
 
-.card.coinPrice.loss {
-  border: 1px solid #e60000;
-}
+
 .projectType {
   text-transform: uppercase;
   font-size: 0.8rem;
@@ -227,24 +222,46 @@ a, a:hover {
   width: 100%;
   border: 1px solid red;
 }
-.coinPrice:hover {
+.coinPrice.gain:hover {
   padding-left: 1.5rem;
   padding-right: 1.5rem;
-  color: #29e7cd;
+  color: #59a96a;
 }
-.coinPrice:hover h3 {
-  color: #29e7cd;
+.coinPrice.gain:hover h3 {
+  color: #59a96a;
 }
-.coinPrice:hover::before {
+.coinPrice.loss:hover {
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+  color: #fe5f55;
+}
+.coinPrice.loss:hover h3 {
+  color: #fe5f55;
+}
+.coinPrice::before {
   position: absolute;
   left: 0;
   top: 0;
   bottom: 0;
   content: '';
-  background-color: #29e7cd;
+  background-color: rgba(0,0,0,0);
   width: 8px;
   border-top-left-radius: .25rem;
   border-bottom-left-radius: .25rem;
+}
+
+.card.coinPrice .text-right .percentage.gain {
+  color: #59a96a;
+}
+.card.coinPrice .text-right .percentage.loss {
+  color: #fe5f55;
+}
+
+.coinPrice.gain::before {
+  background-color: #59a96a;
+}
+.coinPrice.loss::before {
+  background-color: #fe5f55;
 }
 
 

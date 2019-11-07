@@ -6,6 +6,15 @@ export default class Coins extends Component {
     constructor(props) {
         super(props);
       }
+      
+      priceChange(lastPrice, price) {
+        const diff = lastPrice - price
+        const change = diff / lastPrice
+        const percent = (change * -100)
+        return (change === -Infinity
+          ? 0
+          : percent).toFixed(3)
+      }
 
       render() {
         const { name, id, fullname, price, lastPrice } = this.props;
@@ -21,10 +30,13 @@ export default class Coins extends Component {
                             {fullname}
                         </p>
                     </div>
-                    <div>
-                        <h3 className="pb-0 mb-0">
+                    <div className="text-right">
+                        <h3 className={`pb-0 mb-0 price`}>
                             ${price}
                         </h3>
+                        <p className={`percentage mb-0 pb-0`}>
+                            {lastPrice !== undefined ? this.priceChange(lastPrice, price) : 0}%
+                        </p>
                     </div>
                   </div>
               </div>
