@@ -11,9 +11,7 @@ export default class Coins extends Component {
         const diff = lastPrice - price
         const change = diff / lastPrice
         const percent = (change * -100)
-        return (change === -Infinity
-          ? 0
-          : percent).toFixed(3)
+        return (change === -Infinity ? 0 : percent).toFixed(3)
       }
 
       gainLoss(lastPrice, price) {
@@ -32,7 +30,7 @@ export default class Coins extends Component {
         const { name, id, fullname, price, lastPrice, logo } = this.props;
         const gainloss = this.gainLoss(lastPrice, price);
         return (
-              <div className="mx-3" key={id}>
+              <div className="mx-2" key={id}>
                 <div className={`card coinPrice ${gainloss}`}>
                     <div className="coinInfo">
                         <img src={logo} className="logoImage"/>

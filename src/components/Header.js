@@ -13,11 +13,11 @@ class Header extends Component {
         <div className="row">
           <div className="intro col-lg-12">
             <h2 className="headerTitle">COIN3D</h2>
-            <div className="text-right">
-              <h5 className="mb-0">{time.toDateString()}</h5>
+            <div className="text-right d-flex align-items-center">
+              <h5 className="mb-0 mr-4">{time.toDateString()}</h5>
               <h2>
                 <Clock
-                style={{ fontSize: '1.5em', fontWeight: '300' }}
+                style={{ fontSize: '1.25em', fontWeight: '300' }}
                 format={'h:mm a'}
                 ticking={true} />
               </h2>
