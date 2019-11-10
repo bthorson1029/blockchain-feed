@@ -16,7 +16,7 @@ class CardRow extends Component {
     super(props)
     this.state = {
       endpoint: 'everything',
-      category: '',
+      category: 'publishedAt',
       isLoading: true,
       query: 'cryptocurrency',
       resources: [],
@@ -27,6 +27,8 @@ class CardRow extends Component {
     this.coinDetails = this.coinDetails.bind(this);
     this.coinNews = this.coinNews.bind(this);
     this.cryptoNews = this.cryptoNews.bind(this);
+    this.handleChange = this.handleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   componentDidMount() {
@@ -87,12 +89,13 @@ class CardRow extends Component {
       // const Category = this.state.category;
       const searchQuery = 'q=' + Query + '&';
       const mainLanguage = "language=en&";
+      const category = this.state.category; // filter / sort category
       const url = baseURL +
         searchQuery +
         'pageSize=' +
         articleCount +
         '&' + // Number of results
-        'sortBy=popularity&' +
+        `sortBy=${category}&` + // popularity, publishedAt, relevancy
         mainLanguage +
         'apiKey=' +
         newsAPIKey;
@@ -157,6 +160,16 @@ class CardRow extends Component {
   }
 
 
+  handleChange(event) {
+    this.setState({category: event.target.value});
+  }
+
+  handleSubmit(event) {
+    this.coinNews();
+    event.preventDefault();
+  }
+
+
 
   render() {
     const { resources, coins } = this.state;
@@ -191,20 +204,21 @@ class CardRow extends Component {
                 }
             </div>
             </div>
-            <div className="card adSpace">
-              <div className="card-header">
-                <h3>AD Title Here</h3>
-              </div>
-              <div className="card-body">
-                <p>lorem ipsum</p>
-              </div>
-            </div>
           </nav>
           <div className="col-md-10 articleArea">
           <div className="row pb-0">
                 <h5 className="col text-left  mb-1">
                   Top Articles for Cryptocurrency by Popularity
                 </h5>
+                <form className="form-inline" onSubmit={this.handleSubmit}>
+                  <label className="mr-2">Sort By:</label>
+                  <select className="form-control mx-2" value={this.state.category} onChange={this.handleChange}>
+                      <option value="publishedAt">Recent</option>
+                      <option value="relevancy">Relevancy</option>
+                      <option value="popularity">Popularity</option>
+                    </select>
+                  <input type="submit" value="Sort" className="form-control btn btn-secondary mr-4" />
+                </form>
               </div>
             <div className="row pt-4">
               {
