@@ -85,7 +85,7 @@ class CardRow extends Component {
       const newsAPIKey = '6fb75bd662324da8ac93021ec495081e';
       const baseURL = 'https://newsapi.org/v2/' + this.state.endpoint + '?';
       const Query = this.state.query;
-      const articleCount = 48;
+      const articleCount = 64;
       // const Category = this.state.category;
       const searchQuery = 'q=' + Query + '&';
       const mainLanguage = "language=en&";
@@ -171,6 +171,7 @@ class CardRow extends Component {
 
 
 
+
   render() {
     const { resources, coins } = this.state;
     return (
@@ -208,7 +209,7 @@ class CardRow extends Component {
           <div className="col-md-10 articleArea">
           <div className="row pb-0">
                 <h5 className="col text-left  mb-1">
-                  Top Articles for Cryptocurrency by Popularity
+                  Articles:
                 </h5>
                 <form className="form-inline" onSubmit={this.handleSubmit}>
                   <label className="mr-2">Sort By:</label>
