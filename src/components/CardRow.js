@@ -41,17 +41,18 @@ class CardRow extends Component {
   async coinDetails() {
     try {
       const cryptoCompareKey = '416becedd549a2a36a04e374118496c536b7c12a320c33d55e04bcd02553b4cc';
-      const cryptoCompareUrl = 'https://min-api.cryptocompare.com/data/top/mktcapfull?limit=12&tsym=USD' + '&api_key=' + cryptoCompareKey;
+      const cryptoCompareUrl = `https://min-api.cryptocompare.com/data/top/mktcapfull?limit=12&tsym=USD&api_key=${cryptoCompareKey}`;
       const cryptoCompareRequest = await fetch(cryptoCompareUrl);
       if (!cryptoCompareRequest.ok) {
         throw Error(cryptoCompareRequest.statusText);
       }
       const cryptoCompareResponse = await cryptoCompareRequest.json();
       const responseObj = cryptoCompareResponse.Data;
+      const mainURL = 'https://www.cryptocompare.com';
       const cryptoCompareMap = responseObj.map(response => (
         {
           name: `${response.CoinInfo.Name}`,
-          logo: `${'https://www.cryptocompare.com' + response.CoinInfo.ImageUrl}`,
+          logo: `${mainURL}${response.CoinInfo.ImageUrl}`,
           fullname: `${response.CoinInfo.FullName}`,
           price: `${response.RAW.USD.PRICE.toFixed(3)}`,
           lastPrice: `${response.price}`
@@ -83,22 +84,14 @@ class CardRow extends Component {
   async coinNews() {
     try {
       const newsAPIKey = '6fb75bd662324da8ac93021ec495081e';
-      const baseURL = 'https://newsapi.org/v2/' + this.state.endpoint + '?';
+      const baseURL = `https://newsapi.org/v2/${this.state.endpoint}?`;
       const Query = this.state.query;
       const articleCount = 64;
       // const Category = this.state.category;
-      const searchQuery = 'q=' + Query + '&';
+      const searchQuery = `q=${Query}&`;
       const mainLanguage = "language=en&";
       const category = this.state.category; // filter / sort category
-      const url = baseURL +
-        searchQuery +
-        'pageSize=' +
-        articleCount +
-        '&' + // Number of results
-        `sortBy=${category}&` + // popularity, publishedAt, relevancy
-        mainLanguage +
-        'apiKey=' +
-        newsAPIKey;
+      const url = `${baseURL}${searchQuery}pageSize=${articleCount}&sortBy=${category}&${mainLanguage}apiKey=${newsAPIKey}`;
       const req = await new Request(url);
       const newsAPIResponse = await fetch(req);
       if (!newsAPIResponse.ok) {
@@ -130,7 +123,7 @@ class CardRow extends Component {
   async cryptoNews() {
     try {
       const cryptoAPIKey = '172fe1fe3990c938aa46e5a814a853ea';
-      const coinURL = 'https://cryptocontrol.io/api/v1/public/news' + '?key=' + cryptoAPIKey;
+      const coinURL = `https://cryptocontrol.io/api/v1/public/news?key=${cryptoAPIKey}`;
       const coinReq = await fetch(coinURL);
       if (!coinReq.ok) {
         throw Error(coinReq.statusText);
@@ -177,7 +170,7 @@ class CardRow extends Component {
     return (
       <div className="container-fluid articleContainer">
         <div className="row">
-          <nav className="col-md-2 d-none d-flex sidebar">
+          <nav className="col-md-4 d-none d-flex sidebar">
             <div className="coinList">
               <div className="row">
                 <p className="col coinsTitle text-center my-3">
@@ -206,7 +199,7 @@ class CardRow extends Component {
             </div>
             </div>
           </nav>
-          <div className="col-md-10 articleArea">
+          <div className="col-md-8 articleArea">
           <div className="row pb-0">
                 <h5 className="col text-left  mb-1">
                   Articles:
@@ -227,7 +220,7 @@ class CardRow extends Component {
                   ? resources.map(resource => {
                     const { title, description, date, imageUrl, url, id, source, author } = resource;
                     return (
-                      <div className="col-xl-3 col-lg-4 col-md-6 col-sm-12 mb-4" key={id}>
+                      <div className="col-xl-4 col-lg-6 col-md-6 col-sm-12 mb-4" key={id}>
                         <Resource
                           id={id}
                           title={title}
