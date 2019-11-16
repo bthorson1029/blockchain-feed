@@ -244,32 +244,30 @@ a, a:hover {
   border: 1px solid red;
 }
 
-.card.coinPrice.gain .text-right {
+.card.coinPrice .percentage.gain {
   color: #8aea92;
 }
-.card.coinPrice.loss .text-right {
+.card.coinPrice .percentage.loss {
   color: #ef6f6c;
 }
-
 .coinPrice::before {
   position: absolute;
   left: 0;
   top: 0;
   bottom: 0;
   content: '';
-  background-color: rgba(255,255,255,1);
+  visibility: hidden;
+  opacity: 0;
+  transition: visibility 0s 2s, opacity 2s linear;
   width: 8px;
   border-top-left-radius: .25rem;
   border-bottom-left-radius: .25rem;
 }
-.coinPrice.card:hover {
-  box-shadow: 0 0 0 1px #e8e8e8;
-}
-.coinPrice.card.gain:hover {
-  box-shadow: 0 0 0 1px #8aea92;
-}
-.coinPrice.card.loss:hover {
-  box-shadow: 0 0 0 1px #ef6f6c;
+.coinPrice.gain::before,
+.coinPrice.loss::before {
+  visibility: visible;
+  opacity: 1;
+  transition: opacity 2s linear;
 }
 .coinPrice.gain::before {
   background-color: #8aea92;

@@ -35,7 +35,7 @@ class CardRow extends Component {
     this.coinNews();
     this.cryptoNews();
     this.coinDetails();
-    setInterval(this.coinDetails, 10000);
+    setInterval(this.coinDetails, 8000);
   }
 
   async coinDetails() {
@@ -55,7 +55,8 @@ class CardRow extends Component {
           logo: `${mainURL}${response.CoinInfo.ImageUrl}`,
           fullname: `${response.CoinInfo.FullName}`,
           price: `${response.RAW.USD.PRICE.toFixed(3)}`,
-          lastPrice: `${response.price}`
+          lastPrice: `${response.price}`,
+          changePCT24hr: `${response.RAW.USD.CHANGEPCT24HOUR.toFixed(2)}`
         }
       ));
       const priceMap = cryptoCompareMap.map(currentPrice =>  parseFloat(currentPrice.price));
@@ -98,6 +99,7 @@ class CardRow extends Component {
         throw Error(newsAPIResponse.statusText);
       }
       const newsJson = await newsAPIResponse.json();
+      
       const data = newsJson.articles.map(article => (
         {
           id: `${window.btoa(Math.random())}`,
@@ -142,7 +144,7 @@ class CardRow extends Component {
         }
       ));
       this.setState({
-        resources: [...this.state.resources.concat(coinNewsResponse)],
+        resources: [...this.state.resources, coinNewsResponse],
         isLoading: false
       })
     }
@@ -180,7 +182,7 @@ class CardRow extends Component {
                 <div className="row">
                     {
                       coins.map(coin => {
-                      const { name, price, id, fullname, lastPrice, logo } = coin;
+                      const { name, price, id, fullname, lastPrice, logo, changePCT24hr } = coin;
                       return (
                         <div className="col-lg-12 mb-2" key={id}>
                           <Coins
@@ -190,6 +192,7 @@ class CardRow extends Component {
                             fullname={fullname}
                             price={price}
                             lastPrice={lastPrice}
+                            changePCT24hr={changePCT24hr}
                           />
                         </div>
                       )

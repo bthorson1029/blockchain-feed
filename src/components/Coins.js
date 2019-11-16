@@ -26,9 +26,22 @@ export default class Coins extends Component {
         }
       }
 
+      pctChange(changePCT24hr) {
+        if(changePCT24hr < 0) {
+            return 'loss'
+        } 
+        if (changePCT24hr > 0) {
+            return 'gain'
+        }
+        else {
+            return 'neutral'
+        }
+      }
+
       render() {
-        const { name, id, fullname, price, lastPrice, logo } = this.props;
+        const { name, id, fullname, price, lastPrice, logo, changePCT24hr } = this.props;
         const gainloss = this.gainLoss(lastPrice, price);
+        const pctChange = this.pctChange(changePCT24hr);
         return (
               <div className="mx-2" key={id}>
                 <div className={`card coinPrice ${gainloss}`}>
@@ -47,8 +60,8 @@ export default class Coins extends Component {
                         <h3 className={`pb-0 mb-0 price`}>
                             ${price}
                         </h3>
-                        <p className={`percentage mb-0 pb-0`}>
-                            {lastPrice !== undefined ? this.priceChange(lastPrice, price) : 0}%
+                        <p className={`percentage mb-0 pb-0 ${pctChange}`}>
+                            {changePCT24hr}%
                         </p>
                     </div>
                   </div>
