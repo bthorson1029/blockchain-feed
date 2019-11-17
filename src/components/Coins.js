@@ -38,13 +38,29 @@ export default class Coins extends Component {
         }
       }
 
+      iconChange(lastPrice, price) {
+        if(lastPrice > price) {
+            return 'fa-arrow-down'
+        } 
+        if (lastPrice < price) {
+            return 'fa-arrow-up'
+        }
+        else {
+            return 'fa-sync-alt'
+        }
+      }
+
       render() {
         const { name, id, fullname, price, lastPrice, logo, changePCT24hr } = this.props;
         const gainloss = this.gainLoss(lastPrice, price);
         const pctChange = this.pctChange(changePCT24hr);
+        const iconChange = this.iconChange(lastPrice, price);
         return (
               <div className="mx-2" key={id}>
                 <div className={`card coinPrice ${gainloss}`}>
+                    <div className="iconArea">
+                        <i className={`fas ${iconChange}`}></i>
+                    </div>
                     <div className="coinInfo">
                         <img src={logo} className="logoImage"/>
                         <div className="d-block">

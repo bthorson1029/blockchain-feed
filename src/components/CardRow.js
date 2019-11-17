@@ -41,7 +41,7 @@ class CardRow extends Component {
   async coinDetails() {
     try {
       const cryptoCompareKey = '416becedd549a2a36a04e374118496c536b7c12a320c33d55e04bcd02553b4cc';
-      const cryptoCompareUrl = `https://min-api.cryptocompare.com/data/top/mktcapfull?limit=12&tsym=USD&api_key=${cryptoCompareKey}`;
+      const cryptoCompareUrl = `https://min-api.cryptocompare.com/data/top/mktcapfull?limit=100&tsym=USD&api_key=${cryptoCompareKey}`;
       const cryptoCompareRequest = await fetch(cryptoCompareUrl);
       if (!cryptoCompareRequest.ok) {
         throw Error(cryptoCompareRequest.statusText);
@@ -54,7 +54,7 @@ class CardRow extends Component {
           name: `${response.CoinInfo.Name}`,
           logo: `${mainURL}${response.CoinInfo.ImageUrl}`,
           fullname: `${response.CoinInfo.FullName}`,
-          price: `${response.RAW.USD.PRICE.toFixed(3)}`,
+          price: `${response.RAW.USD.PRICE < 1 ? response.RAW.USD.PRICE.toFixed(3) : response.RAW.USD.PRICE.toFixed(2) }`,
           lastPrice: `${response.price}`,
           changePCT24hr: `${response.RAW.USD.CHANGEPCT24HOUR.toFixed(2)}`
         }
@@ -172,37 +172,38 @@ class CardRow extends Component {
     return (
       <div className="container-fluid articleContainer">
         <div className="row">
-          <nav className="col-md-4 d-none d-flex sidebar">
-            <div className="coinList">
-              <div className="row">
-                <p className="col coinsTitle text-center my-3">
-                  Top 10 Cryptocurrenies by Market Cap
-                </p>
-              </div>
-                <div className="row">
-                    {
-                      coins.map(coin => {
-                      const { name, price, id, fullname, lastPrice, logo, changePCT24hr } = coin;
-                      return (
-                        <div className="col-lg-12 mb-2" key={id}>
-                          <Coins
-                            key={id}
-                            name={name}
-                            logo={logo}
-                            fullname={fullname}
-                            price={price}
-                            lastPrice={lastPrice}
-                            changePCT24hr={changePCT24hr}
-                          />
-                        </div>
-                      )
-                    }
-                  )
-                }
+          <nav className="col-md-5 d-none d-flex sidebar">
+            <div className="row">
+              <p className="col coinsTitle text-left ml-2 my-4 mb-1">
+                Top 10 Cryptocurrenies by Market Cap
+              </p>
             </div>
+            <div className="coinList">
+              <div className="row my-4 pb-5">
+                  {
+                  coins.map((coin, index) => {
+                    const { name, price, id, fullname, lastPrice, logo, changePCT24hr } = coin;
+                    console.log(index);
+                    return (
+                      <div className="col-lg-12 mb-2" key={id}>
+                        <Coins
+                          key={id}
+                          name={name}
+                          logo={logo}
+                          fullname={fullname}
+                          price={price}
+                          lastPrice={lastPrice}
+                          changePCT24hr={changePCT24hr}
+                          />
+                          </div>
+                        )
+                      }
+                    )
+                  }
+              </div>
             </div>
           </nav>
-          <div className="col-md-8 articleArea">
+          <div className="col-md-7 articleArea">
           <div className="row pb-0">
                 <h5 className="col text-left  mb-1">
                   Articles:
@@ -217,7 +218,7 @@ class CardRow extends Component {
                   <input type="submit" value="Sort" className="form-control btn btn-secondary mr-4" />
                 </form>
               </div>
-            <div className="row pt-4">
+            <div className="row mt-4 resourcesArea">
               {
                 resources.length > 0
                   ? resources.map(resource => {
