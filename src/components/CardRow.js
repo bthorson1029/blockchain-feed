@@ -175,7 +175,7 @@ class CardRow extends Component {
           <nav className="col-md-5 d-none d-flex sidebar">
             <div className="row">
               <p className="col coinsTitle text-left ml-2 my-4 mb-1">
-                Top 10 Cryptocurrenies by Market Cap
+                Top 100 Cryptocurrenies by Market Cap
               </p>
             </div>
             <div className="coinList">
