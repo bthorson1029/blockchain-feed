@@ -183,7 +183,6 @@ class CardRow extends Component {
                   {
                   coins.map((coin, index) => {
                     const { name, price, id, fullname, lastPrice, logo, changePCT24hr } = coin;
-                    console.log(index);
                     return (
                       <div className="col-lg-12 mb-2" key={id}>
                         <Coins
