@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import Resource from './Resource.js';
 
 class ArticleCard extends Component {
   render(){

@@ -2,11 +2,7 @@ import React, { Component } from 'react';
 
 
 
-export default class Coins extends Component {
-    constructor(props) {
-        super(props);
-      }
-      
+export default class Coins extends Component {  
       priceChange(lastPrice, price) {
         const diff = lastPrice - price
         const change = diff / lastPrice

@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import CardRow from './CardRow.js';
 import Clock from 'react-live-clock';
 
 class Header extends Component {

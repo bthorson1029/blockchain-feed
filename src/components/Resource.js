@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import ArticleCard from './ArticleCard.js';
-import CardRow from './CardRow.js';
 
 class Resource extends Component {
 
@@ -16,7 +15,7 @@ class Resource extends Component {
     const {resourceUrl, title, imageUrl, source, description, id } = this.props;
     return (
       <div className="cardContainer">
-        {this.state.isLoading == false ? 
+        {this.state.isLoading === false ? 
           <ArticleCard publishedDate={publishedDate} 
                        title={title} 
                        source={source} 

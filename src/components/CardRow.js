@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 
 // import logo from '../logo.svg';
 import Resource from './Resource';
-import Loader from './Loader';
 import Coins from './Coins';
 import _ from 'lodash';
 
