@@ -82,6 +82,7 @@ class CardRow extends Component {
     }
   }
 
+  // Request for NewsAPI
   async coinNews() {
     try {
       const newsAPIKey = '6fb75bd662324da8ac93021ec495081e';
@@ -93,7 +94,7 @@ class CardRow extends Component {
       const mainLanguage = "language=en&";
       const category = this.state.category; // filter / sort category
       const url = `${baseURL}${searchQuery}pageSize=${articleCount}&sortBy=${category}&${mainLanguage}apiKey=${newsAPIKey}`;
-      const req = await new Request(url);
+      const req = new Request(url);
       const newsAPIResponse = await fetch(req);
       if (!newsAPIResponse.ok) {
         throw Error(newsAPIResponse.statusText);
@@ -122,6 +123,7 @@ class CardRow extends Component {
     }
   }
 
+  // Request for Cryptocontrol
   async cryptoNews() {
     try {
       const cryptoAPIKey = '172fe1fe3990c938aa46e5a814a853ea';
@@ -131,6 +133,7 @@ class CardRow extends Component {
         throw Error(coinReq.statusText);
       }
       const coinNews = await coinReq.json();
+      console.log(coinNews);
       const coinNewsResponse = coinNews.map(article => (
         {
           id: `${window.btoa(Math.random())}`,
@@ -172,7 +175,7 @@ class CardRow extends Component {
     return (
       <div className="container-fluid articleContainer">
         <div className="row">
-          <nav className="col-md-5 d-none d-flex sidebar">
+          <nav className="col-md-3 d-none d-flex sidebar">
             <div className="row">
               <p className="col coinsTitle text-left ml-2 my-4 mb-1">
                 Top 100 Cryptocurrenies by Market Cap
@@ -202,7 +205,7 @@ class CardRow extends Component {
               </div>
             </div>
           </nav>
-          <div className="col-md-7 articleArea">
+          <div className="col-md-9 articleArea">
           <div className="row pb-0">
                 <h5 className="col text-left  mb-1">
                   Articles:
@@ -223,7 +226,7 @@ class CardRow extends Component {
                   ? resources.map(resource => {
                     const { title, description, date, imageUrl, url, id, source, author } = resource;
                     return (
-                      <div className="col-xl-4 col-lg-6 col-md-6 col-sm-12 mb-4" key={id}>
+                      <div className="col-xl-3 col-lg-4 col-md-4 col-sm-6 mb-4" key={id}>
                         <Resource
                           id={id}
                           title={title}

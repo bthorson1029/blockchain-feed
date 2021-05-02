@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;700;800&display=swap');
+
 *, 
 *::before, 
 *::after {
@@ -7,6 +9,7 @@
 body {
     background-color: #F9F9FA;
     overflow: hidden;
+    font-family: 'Poppins', sans-serif;
 }
 
 a, a:hover {
@@ -19,9 +22,9 @@ a, a:hover {
 .header .row .intro {
   display: flex;
   justify-content: space-between;
-  background-color: #2a3f4b;
+  background-color: #23272A;
   color: white;
-  padding: 0.25rem 4rem;
+  padding: 1rem 3rem;
 }
 .header h2.headerTitle {
   margin: 0.5rem 0;
@@ -42,7 +45,10 @@ a, a:hover {
   transition: box-shadow .3s ease-out, transform .3s ease-out, opacity .2s ease-out;
   transition-delay: .1s;
   transition: all .3s ease;
-  background-color: #2a3f4b;
+  background-color: #23272A;
+  padding: .5rem .5rem 1rem;
+  outline: 1px solid #383E47;
+  border-radius: 8px;
   
 }
 .cardContainer .card:hover {
@@ -76,7 +82,7 @@ a, a:hover {
 }
 .cardContainer .card .card-footer {
   display: block;
-  background-color: #273a45;
+  background-color: #23272A;
 }
 .cardContainer .card .card-footer .footerLeft {
   float: left;
@@ -90,7 +96,7 @@ a, a:hover {
   float: right;
 }
 .cardContainer .card .sourceImage {
-  height: 160px;
+  height: 100%;
   width: 100%;
   display: flex;
   object-fit: cover;
@@ -98,8 +104,9 @@ a, a:hover {
   background-color: #efefef;
 }
 .cardContainer .card .card-img-top {
-  height: 160px;
+  height: 210px;
   overflow: hidden;
+  border-radius: 8px;
 }
 .cardContainer .card .sourceTitle h3 {
   font-size: 1.25rem;
@@ -139,7 +146,7 @@ a, a:hover {
   height: 100vh;
   padding-bottom: 2rem;
   padding-top: 1rem;
-  background-color: #152c3a;
+  background-color: #2C2F33;
   overflow: hidden;
   color: white;
 }
@@ -179,7 +186,7 @@ a, a:hover {
   text-align: center;
 }
 .coinPrice.card {
-  background-color: #2a3f4b !important;
+  background-color: #23272A !important;
   border: none;
   height: 54px;
   transition: all 0.10s ease-in;
@@ -215,7 +222,7 @@ a, a:hover {
   border-radius: 50%;
 }
 .sidebar {
-  background-color: #152c3a !important;
+  background-color: #2C2F33 !important;
   width: 100%;
   overflow-y: auto;
   flex-direction: column;
@@ -281,7 +288,7 @@ a, a:hover {
 }
 
 .coinPrice.neutral::before {
-  background-color: #273a45;
+  background-color: #23272A;
 }
 .coinPrice.gain::before {
   background-color: #8aea92;

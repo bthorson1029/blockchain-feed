@@ -46,7 +46,7 @@ export default class Coins extends Component {
             return 'fa-arrow-up'
         }
         else {
-            return 'fa-sync-alt'
+            return
         }
       }
 
