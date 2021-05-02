@@ -62,7 +62,7 @@
   },
   "scripts": {
     "start": "node scripts/start.js",
-    "build": "CI= react-scripts build",
+    "build": "CI= node scripts/build.js",
     "test": "node scripts/test.js"
   },
   "eslintConfig": {
