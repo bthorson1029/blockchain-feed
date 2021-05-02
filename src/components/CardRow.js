@@ -175,6 +175,48 @@ class CardRow extends Component {
     return (
       <div className="container-fluid articleContainer">
         <div className="row">
+        <div className="col-md-9 articleArea">
+            <div className="row pb-0">
+                  <h5 className="col text-left  mb-1">
+                    Articles:
+                  </h5>
+                  <form className="form-inline" onSubmit={this.handleSubmit}>
+                    <label className="mr-2">Sort By:</label>
+                    <select className="form-control mx-2" value={this.state.category} onChange={this.handleChange}>
+                        <option value="publishedAt">Recent</option>
+                        <option value="relevancy">Relevancy</option>
+                        <option value="popularity">Popularity</option>
+                      </select>
+                    <input type="submit" value="Sort" className="form-control btn btn-secondary mr-4" />
+                  </form>
+                </div>
+              <div className="row mt-4 resourcesArea">
+                {
+                  resources.length > 0
+                    ? resources.map(resource => {
+                      const { title, description, date, imageUrl, url, id, source, author } = resource;
+                      return (
+                        <div className="col-xl-3 col-lg-4 col-md-4 col-sm-6 mb-4" key={id}>
+                          <Resource
+                            id={id}
+                            title={title}
+                            author={author}
+                            source={source}
+                            description={description}
+                            date={date}
+                            imageUrl={imageUrl}
+                            resourceUrl={url}
+                          />
+                        </div>
+                      )
+                    })
+                    : null
+                }
+              </div>
+              <div className="row">
+                <button className="btn btn-secondary mt-0 ml-auto mr-auto mt-5" type="submit">Load more resources</button>
+            </div>
+          </div>
           <nav className="col-md-3 d-none d-flex sidebar">
             <div className="row">
               <p className="col coinsTitle text-left ml-2 my-4 mb-1">
@@ -205,48 +247,7 @@ class CardRow extends Component {
               </div>
             </div>
           </nav>
-          <div className="col-md-9 articleArea">
-          <div className="row pb-0">
-                <h5 className="col text-left  mb-1">
-                  Articles:
-                </h5>
-                <form className="form-inline" onSubmit={this.handleSubmit}>
-                  <label className="mr-2">Sort By:</label>
-                  <select className="form-control mx-2" value={this.state.category} onChange={this.handleChange}>
-                      <option value="publishedAt">Recent</option>
-                      <option value="relevancy">Relevancy</option>
-                      <option value="popularity">Popularity</option>
-                    </select>
-                  <input type="submit" value="Sort" className="form-control btn btn-secondary mr-4" />
-                </form>
-              </div>
-            <div className="row mt-4 resourcesArea">
-              {
-                resources.length > 0
-                  ? resources.map(resource => {
-                    const { title, description, date, imageUrl, url, id, source, author } = resource;
-                    return (
-                      <div className="col-xl-3 col-lg-4 col-md-4 col-sm-6 mb-4" key={id}>
-                        <Resource
-                          id={id}
-                          title={title}
-                          author={author}
-                          source={source}
-                          description={description}
-                          date={date}
-                          imageUrl={imageUrl}
-                          resourceUrl={url}
-                        />
-                      </div>
-                    )
-                  })
-                  : null
-              }
-            </div>
-            <div className="row">
-            <button className="btn btn-secondary mt-0 ml-auto mr-auto mt-5" type="submit">Load more resources</button>
-            </div>
-          </div>
+          
         </div>
       </div>
     )

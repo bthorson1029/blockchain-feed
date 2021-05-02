@@ -288,7 +288,7 @@ a, a:hover {
 }
 
 .coinPrice.neutral::before {
-  background-color: #23272A;
+  background-color: #273a45;
 }
 .coinPrice.gain::before {
   background-color: #8aea92;
