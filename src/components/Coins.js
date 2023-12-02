@@ -1,45 +1,41 @@
 import React, { Component } from 'react';
 
-
-
 export default class Coins extends Component {  
-      priceChange(lastPrice, price) {
-        const diff = lastPrice - price
-        const change = diff / lastPrice
-        const percent = (change * -100)
-        return (change === -Infinity ? 0 : percent).toFixed(3)
-      }
+    priceChange(lastPrice, price) {
+        const diff = lastPrice - price;
+        const change = diff / lastPrice;
+        const percent = (change * -100);
+        return (change === -Infinity ? 0 : percent).toFixed(3);
+    }
 
-      gainLoss(lastPrice, price) {
-        if(lastPrice > price) {
-            return 'loss'
+    gainLoss(lastPrice, price) {
+        if (lastPrice > price) {
+            return 'loss';
         } 
         if (lastPrice < price) {
-            return 'gain'
+            return 'gain';
+        } else {
+            return 'neutral';
         }
-        else {
-            return 'neutral'
-        }
-      }
+    }
 
-      pctChange(changePCT24hr) {
-        if(changePCT24hr < 0) {
-            return 'loss'
+    pctChange(changePCT24hr) {
+        if (changePCT24hr < 0) {
+            return 'loss';
         } 
         if (changePCT24hr > 0) {
-            return 'gain'
+            return 'gain';
+        } else {
+            return 'neutral';
         }
-        else {
-            return 'neutral'
-        }
-      }
+    }
 
-      render() {
+    render() {
         const { name, id, fullname, price, lastPrice, logo, changePCT24hr } = this.props;
         const gainloss = this.gainLoss(lastPrice, price);
         const pctChange = this.pctChange(changePCT24hr);
         return (
-              <div className="mx-2" key={id}>
+            <div className="mx-2" key={id}>
                 <div className={`card coinPrice ${gainloss}`}>
                     <div className="coinInfo">
                         <img src={logo} className="logoImage"/>
@@ -60,9 +56,8 @@ export default class Coins extends Component {
                             ${price}
                         </h3>
                     </div>
-                  </div>
-              </div>
-          )
-      }
-
+                </div>
+            </div>
+        );
+    }
 }
